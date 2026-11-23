@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Job shortlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F6; --surface:#FFFFFF; --ink:#17324D; --text:#1D2730; --muted:#5F6B76;
+  --line:#D8DEE3; --strong:#1E7550; --strong-bg:#E3F1EA; --maybe:#9A6A12; --maybe-bg:#F7EEDB;
+  --weak:#7A8590; --weak-bg:#ECEFF1; --focus:#2F6FB0;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#11171D; --surface:#18212A; --ink:#C9DBEC; --text:#E3E9EE; --muted:#97A3AE;
+    --line:#2A3540; --strong:#6FCF9F; --strong-bg:#173527; --maybe:#E2B35C; --maybe-bg:#3A2E16;
+    --weak:#8B96A1; --weak-bg:#222C35; --focus:#7FB2E5;
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--text);
+  font:15px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--ink)}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 56px}
+
+header h1{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
+  font-weight:600;font-size:30px;line-height:1.1;margin:0;color:var(--ink);letter-spacing:-.01em}
+header p{margin:6px 0 0;color:var(--muted);font-size:14px}
+
+.tabs{display:flex;gap:4px;margin:22px 0 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{background:none;border:0;border-bottom:3px solid transparent;padding:10px 12px 9px;
+  cursor:pointer;white-space:nowrap;color:var(--muted);font-weight:500}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tab .n{font-weight:400;margin-left:6px;font-size:13px}
+
+.views{display:flex;gap:8px;margin:14px 0 6px;flex-wrap:wrap}
+.view{border:1px solid var(--line);background:var(--surface);border-radius:999px;
+  padding:5px 12px;cursor:pointer;font-size:14px}
+.view[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+.list{list-style:none;margin:8px 0 0;padding:0}
+.job{display:grid;grid-template-columns:64px 1fr;gap:4px 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.score{grid-row:1 / span 3;text-align:center;padding-top:2px}
+.score b{display:block;font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
+  font-weight:600;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.score small{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.2}
+.score.s-strong b{color:var(--strong)} .score.s-maybe b{color:var(--maybe)} .score.s-weak b{color:var(--weak)}
+.job h2{margin:0;font-size:17px;font-weight:600;line-height:1.3}
+.meta{color:var(--muted);font-size:14px}
+.fresh{display:inline-block;font-size:12px;padding:0 7px;border-radius:4px;background:var(--strong-bg);color:var(--strong);margin-left:6px;vertical-align:1px}
+.why{margin:6px 0 0;font-size:14px}
+.why .verdict{font-weight:600}
+.v-apply{color:var(--strong)} .v-maybe{color:var(--maybe)} .v-skip{color:var(--weak)}
+.kw{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.actions{grid-column:2;display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:7px 12px;cursor:pointer;text-decoration:none;font-size:14px}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:500}
+select.status{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 8px;font-size:14px}
+details{grid-column:2;margin-top:8px}
+summary{cursor:pointer;color:var(--ink);font-size:14px}
+.kit{margin-top:8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.kit h3{font-size:13px;margin:0 0 4px;color:var(--muted);font-weight:500}
+.kit pre{white-space:pre-wrap;font:inherit;font-size:14px;margin:0 0 10px}
+.kit ul{margin:0 0 10px;padding-left:18px;font-size:14px}
+.empty{padding:40px 0;color:var(--muted)}
+.empty strong{display:block;color:var(--text);font-size:16px;margin-bottom:4px}
+footer{margin-top:28px;font-size:13px;color:var(--muted)}
+footer ul{padding-left:18px;margin:6px 0 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (max-width:540px){
+  .job{grid-template-columns:48px 1fr;gap:2px 12px}
+  .score b{font-size:26px}
+  header h1{font-size:25px}
+}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Job shortlist</h1>
+    <p id="updated">Loading today’s jobs…</p>
+  </header>
+
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+
+  <div class="views" role="group" aria-label="Show">
+    <button class="view" data-view="new" aria-pressed="true">New today</button>
+    <button class="view" data-view="week" aria-pressed="false">This week</button>
+    <button class="view" data-view="mine" aria-pressed="false">My applications</button>
+  </div>
+
+  <ol class="list" id="list"></ol>
+  <footer id="sources"></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var STATUS_KEY = "jobshortlist.status.v1";
+  var SNAP_KEY = "jobshortlist.snapshots.v1";
+  var state = { data:null, scored:{}, tab:null, view:"new" };
+
+  function load(key){ try{ return JSON.parse(localStorage.getItem(key)||"{}"); }catch(e){ return {}; } }
+  function save(key,val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+  var statuses = load(STATUS_KEY), snapshots = load(SNAP_KEY);
+
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+
+  function toast(msg){ var t=document.getElementById("toast"); t.textContent=msg; t.classList.add("on");
+    clearTimeout(toast._t); toast._t=setTimeout(function(){ t.classList.remove("on"); },1800); }
+
+  function getJSON(url){ return fetch(url+"?t="+Date.now(),{cache:"no-store"}).then(function(r){
+    if(!r.ok) throw new Error(url+" "+r.status); return r.json(); }); }
+
+  Promise.all([
+    getJSON("jobs/data/jobs.json"),
+    getJSON("jobs/data/scored.json").catch(function(){ return {jobs:{}}; })
+  ]).then(function(res){
+    state.data = res[0]; state.scored = (res[1] && res[1].jobs) || {};
+    var hash = location.hash.replace("#","");
+    var ids = state.data.tabs.map(function(t){ return t.id; });
+    state.tab = ids.indexOf(hash) >= 0 ? hash : ids[0];
+    if(!state.data.updated_at){
+      document.getElementById("updated").textContent = "No run yet. Open the Actions tab on GitHub, pick Daily jobs and press Run workflow.";
+      render(); return;
+    }
+    var when = new Date(state.data.updated_at);
+    var aiDate = res[1] && res[1].date;
+    document.getElementById("updated").textContent =
+      "Collected " + when.toLocaleString("en-IN",{weekday:"short",day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}) +
+      (aiDate ? ". AI review done for " + new Date(aiDate+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short"}) + "." : ". AI review not done yet; showing keyword match.");
+    render();
+  }).catch(function(err){
+    document.getElementById("updated").textContent = "";
+    document.getElementById("list").innerHTML =
+      '<li class="empty"><strong>No job list found yet.</strong>Run the “Daily jobs” workflow once from the Actions tab on GitHub, then refresh this page. ('+esc(err.message)+')</li>';
+  });
+
+  window.addEventListener("hashchange", function(){
+    var h = location.hash.replace("#","");
+    if(state.data && state.data.tabs.some(function(t){ return t.id===h; })){ state.tab=h; render(); }
+  });
+
+  document.querySelectorAll(".view").forEach(function(b){
+    b.addEventListener("click", function(){ state.view=b.dataset.view;
+      document.querySelectorAll(".view").forEach(function(x){ x.setAttribute("aria-pressed", String(x===b)); });
+      render(); });
+  });
+
+  function fit(job){
+    var ai = state.scored[job.id];
+    if(ai && typeof ai.score === "number") return { value: ai.score, label:"AI fit /10", cls: ai.score>=7.5?"s-strong":ai.score>=5.5?"s-maybe":"s-weak", sort: ai.score*10 };
+    var k = job.keyword_score||0;
+    return { value: k, label:"keyword %", cls: k>=70?"s-strong":k>=50?"s-maybe":"s-weak", sort: k-1 };
+  }
+
+  function jobsForView(){
+    var d = state.data, tab = state.tab;
+    if(state.view === "mine"){
+      return Object.keys(statuses).filter(function(id){
+        var s = statuses[id]; return s && s.tab===tab && ["applied","interview","offer","rejected"].indexOf(s.value)>=0;
+      }).map(function(id){ return snapshots[id]; }).filter(Boolean)
+        .sort(function(a,b){ return (statuses[b.id].at||"").localeCompare(statuses[a.id].at||""); });
+    }
+    return d.jobs.filter(function(j){
+      if(j.tab!==tab) return false;
+      var s = statuses[j.id] && statuses[j.id].value;
+      if(s==="hidden") return false;
+      if(state.view==="new") return j.first_seen===d.date && !s;
+      return true;
+    }).sort(function(a,b){ return fit(b).sort - fit(a).sort; });
+  }
+
+  function renderTabs(){
+    var d = state.data, nav = document.getElementById("tabs");
+    nav.innerHTML = d.tabs.map(function(t){
+      var n = d.jobs.filter(function(j){ return j.tab===t.id && j.first_seen===d.date && !(statuses[j.id]); }).length;
+      return '<button class="tab" role="tab" aria-selected="'+(t.id===state.tab)+'" data-tab="'+esc(t.id)+'">'+esc(t.label)+'<span class="n">'+n+' new</span></button>';
+    }).join("");
+    nav.querySelectorAll(".tab").forEach(function(b){
+      b.addEventListener("click", function(){ state.tab=b.dataset.tab; history.replaceState(null,"","#"+state.tab); render(); });
+    });
+  }
+
+  var STATUS_OPTS = [["","Not applied"],["saved","Saved for later"],["applied","Applied"],["interview","Interview"],["offer","Offer"],["rejected","Rejected"],["hidden","Not interested"]];
+
+  function jobHTML(j){
+    var f = fit(j), ai = state.scored[j.id] || {};
+    var st = (statuses[j.id] && statuses[j.id].value) || "";
+    var verdict = ai.verdict ? '<span class="verdict v-'+esc(String(ai.verdict).toLowerCase())+'">'+esc(ai.verdict)+'.</span> ' : "";
+    var why = ai.reason ? '<p class="why">'+verdict+esc(ai.reason)+'</p>' : "";
+    var missing = ai.missing && ai.missing.length ? '<p class="kw">Missing: '+esc(ai.missing.join(", "))+'</p>'
+      : (j.matched && j.matched.length ? '<p class="kw">Matches: '+esc(j.matched.slice(0,8).join(", "))+'</p>' : "");
+    var metaBits = [j.company, j.location, j.work_mode, j.source].filter(Boolean).map(esc).join(", ");
+    if(j.salary) metaBits += ". " + esc(j.salary);
+    if(j.experience_text) metaBits += ". " + esc(j.experience_text);
+    var fresh = state.data && j.first_seen===state.data.date ? '<span class="fresh">new</span>' : "";
+
+    var kit = "";
+    if(ai.message || (ai.bullets && ai.bullets.length)){
+      kit = '<details><summary>Application kit</summary><div class="kit">' +
+        (ai.message ? '<h3>Message for recruiter or referral</h3><pre>'+esc(ai.message)+'</pre><button class="btn" data-copy="message">Copy message</button> ' : "") +
+        (ai.bullets && ai.bullets.length ? '<h3 style="margin-top:12px">Resume points to bring forward</h3><ul>'+ai.bullets.map(function(b){ return "<li>"+esc(b)+"</li>"; }).join("")+'</ul><button class="btn" data-copy="bullets">Copy points</button>' : "") +
+        '</div></details>';
+    }
+
+    return '<li class="job" data-id="'+esc(j.id)+'">' +
+      '<div class="score '+f.cls+'"><b>'+esc(f.value)+'</b><small>'+f.label+'</small></div>' +
+      '<div><h2>'+esc(j.title)+fresh+'</h2><div class="meta">'+metaBits+'</div>'+why+missing+'</div>' +
+      '<div class="actions">' +
+        '<button class="btn primary" data-apply>'+(ai.message?"Copy message and apply":"Open and apply")+'</button>' +
+        '<select class="status" aria-label="Status">'+STATUS_OPTS.map(function(o){ return '<option value="'+o[0]+'"'+(o[0]===st?" selected":"")+'>'+o[1]+'</option>'; }).join("")+'</select>' +
+      '</div>' + kit + '</li>';
+  }
+
+  function render(){
+    renderTabs();
+    var items = jobsForView(), list = document.getElementById("list");
+    if(!items.length){
+      var msg = state.view==="new" ? ["Nothing new in this tab today.","Check “This week” for earlier jobs, or come back after tomorrow’s 8 AM run."]
+              : state.view==="mine" ? ["No applications tracked here yet.","After you apply, set the job’s status to Applied and it will stay listed here."]
+              : ["No jobs in the last 7 days.","The source notes below show what happened on the last run."];
+      list.innerHTML = '<li class="empty"><strong>'+msg[0]+'</strong>'+msg[1]+'</li>';
+    } else {
+      list.innerHTML = items.map(jobHTML).join("");
+    }
+    list.querySelectorAll(".job").forEach(bindJob);
+    renderSources();
+  }
+
+  function findJob(id){ return (state.data.jobs.filter(function(j){ return j.id===id; })[0]) || snapshots[id]; }
+
+  function copy(text){
+    if(navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    var ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(e){} document.body.removeChild(ta); return Promise.resolve();
+  }
+
+  function setStatus(job, value){
+    if(!value){ delete statuses[job.id]; }
+    else { statuses[job.id] = { value:value, tab:job.tab, at:new Date().toISOString() }; }
+    if(["applied","interview","offer","rejected"].indexOf(value)>=0){
+      var snap = Object.assign({}, job); delete snap.description; snapshots[job.id] = snap;
+    }
+    save(STATUS_KEY, statuses); save(SNAP_KEY, snapshots);
+  }
+
+  function bindJob(li){
+    var id = li.dataset.id, job = findJob(id), ai = state.scored[id] || {};
+    li.querySelector("[data-apply]").addEventListener("click", function(){
+      var go = function(){ window.open(job.apply_url || job.url, "_blank", "noopener"); };
+      if(ai.message){ copy(ai.message).then(function(){ toast("Message copied. Paste it in the application."); go(); }); }
+      else go();
+      if(!statuses[id]){ setStatus(job, "saved"); li.querySelector("select").value="saved"; }
+    });
+    li.querySelector("select").addEventListener("change", function(e){
+      setStatus(job, e.target.value);
+      toast(e.target.value==="hidden" ? "Hidden from your list." : "Status saved on this device.");
+      if(e.target.value==="hidden" || state.view==="new") render();
+    });
+    li.querySelectorAll("[data-copy]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var t = b.dataset.copy==="message" ? ai.message : (ai.bullets||[]).map(function(x){ return "• "+x; }).join("\n");
+        copy(t).then(function(){ toast("Copied."); });
+      });
+    });
+  }
+
+  function renderSources(){
+    var d = state.data, log = (d.run_log||[]).filter(function(r){ return r.tab===state.tab; })[0];
+    if(!log){ document.getElementById("sources").innerHTML=""; return; }
+    var dropped = Object.keys(log.dropped||{}).map(function(k){ return k+" ("+log.dropped[k]+")"; }).join(", ");
+    var errs = (log.errors||[]).map(function(e){ return "<li>"+esc(e.length>140? e.slice(0,140)+"…" : e)+"</li>"; }).join("");
+    document.getElementById("sources").innerHTML =
+      "Last run: "+log.fetched+" jobs collected, "+log.new+" new kept." +
+      (dropped ? " Filtered out: "+esc(dropped)+"." : "") +
+      (errs ? "<ul>"+errs+"</ul>" : "") +
+      "<p>Statuses are saved on this device only.</p>";
+  }
+})();
+</script>
+</body>
+</html>
