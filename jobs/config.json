@@ -16,6 +16,16 @@
       "Remote": 6,
       "Hybrid": 6,
       "Office": 0
+    },
+    "extra_sources": {
+      "instahyre": {
+        "actor": "cprussin/instahyre-jobs",
+        "price_per_job_usd": 0.0015
+      },
+      "hirist": {
+        "actor": "cprussin/hirist-iimjobs-jobs",
+        "price_per_job_usd": 0.002
+      }
     }
   },
   "tabs": [
@@ -119,6 +129,30 @@
         "24x7": -4,
         "field visit": -6,
         "ccna mandatory": -5
+      },
+      "extra": {
+        "instahyre": {
+          "max_items": 8,
+          "skills": [
+            "IPsec",
+            "SD-WAN",
+            "VPN",
+            "BGP",
+            "Networking",
+            "Network Automation",
+            "Network Security"
+          ],
+          "job_functions": []
+        },
+        "hirist": {
+          "max_items": 8,
+          "queries": [
+            "network software engineer",
+            "sd-wan",
+            "network automation python",
+            "ipsec vpn"
+          ]
+        }
       }
     },
     {
@@ -216,6 +250,28 @@
         "tableau": -4,
         "selenium": -4,
         "data science": -4
+      },
+      "extra": {
+        "instahyre": {
+          "max_items": 8,
+          "skills": [
+            "Python",
+            "FastAPI",
+            "Django",
+            "Flask"
+          ],
+          "job_functions": [
+            "Backend Development"
+          ]
+        },
+        "hirist": {
+          "max_items": 8,
+          "queries": [
+            "python backend developer",
+            "python developer",
+            "fastapi"
+          ]
+        }
       }
     },
     {
@@ -309,6 +365,28 @@
         "manual testing": -6,
         "j2ee legacy": -2,
         "struts": -2
+      },
+      "extra": {
+        "instahyre": {
+          "max_items": 15,
+          "skills": [
+            "Java",
+            "Spring Boot",
+            "Spring",
+            "Microservices"
+          ],
+          "job_functions": [
+            "Backend Development"
+          ]
+        },
+        "hirist": {
+          "max_items": 15,
+          "queries": [
+            "java spring boot developer",
+            "java backend developer",
+            "java microservices"
+          ]
+        }
       }
     }
   ]
