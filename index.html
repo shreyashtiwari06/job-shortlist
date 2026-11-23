@@ -76,31 +76,65 @@ summary{cursor:pointer;color:var(--ink);font-size:14px}
 header h1 a{color:inherit;text-decoration:none}
 .back{display:inline-block;margin-top:10px;font-size:14px;color:var(--muted);text-decoration:none}
 .back:hover{color:var(--ink)}
-.home-hello{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;
-  font-size:clamp(30px,6vw,46px);line-height:1.05;color:var(--ink);margin:6px 0 6px;letter-spacing:-.015em}
-.home-sub{color:var(--muted);margin:0 0 28px;font-size:15px;max-width:60ch}
-.boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.board{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;
-  display:flex;flex-direction:column;gap:2px;color:inherit;text-decoration:none}
-.board:hover{border-color:var(--ink)}
-.board .who{font-size:13px;color:var(--muted)}
-.board h2{margin:0 0 10px;font-size:18px;font-weight:600;color:var(--ink)}
-.board .big{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;
-  font-size:64px;line-height:.95;font-variant-numeric:tabular-nums;color:var(--ink)}
-.board .big-l{font-size:14px;color:var(--muted);margin-bottom:12px}
-.board .stats{font-size:14px;margin-bottom:12px}
-.board .best{font-size:14px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
-.board .best b{font-weight:600}
-.board .best .sc{font-weight:600}
-.sc.s-strong{color:var(--strong)} .sc.s-maybe{color:var(--maybe)} .sc.s-weak{color:var(--weak)}
-.board .go{margin-top:14px;font-weight:500;color:var(--ink);font-size:14px}
-.home-foot{margin-top:26px;font-size:13px;color:var(--muted)}
 .empty strong{display:block;color:var(--text);font-size:16px;margin-bottom:4px}
 footer{margin-top:28px;font-size:13px;color:var(--muted)}
 footer ul{padding-left:18px;margin:6px 0 0}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
   background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.on{opacity:1}
+/* ---------- home ---------- */
+:root{--hero:#13283F;--hero-text:#F2F6FA;--hero-muted:#A9B8C8;--hero-line:#2A4058;
+  --acc-0:#0F766E;--acc-0-bg:#E1F2EF;--acc-1:#4338CA;--acc-1-bg:#E7E6FA;--acc-2:#9A3A86;--acc-2-bg:#F5E6F1}
+@media (prefers-color-scheme:dark){:root{--hero:#0C1A28;--hero-text:#E8EEF4;--hero-muted:#8FA2B5;--hero-line:#22364A;
+  --acc-0:#5CC8BC;--acc-0-bg:#173430;--acc-1:#A5A1F2;--acc-1-bg:#25244A;--acc-2:#E39AD2;--acc-2-bg:#3A2136}}
+#home{margin:-20px calc(50% - 50vw) 0}
+.hero{background:var(--hero);color:var(--hero-text);padding:34px 20px 92px}
+.hero-in{max-width:1040px;margin:0 auto}
+.home-body{max-width:1080px;margin:0 auto}
+.hero .date{color:var(--hero-muted);font-size:14px;margin:0}
+.hero h1{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;
+  font-size:clamp(30px,5.4vw,50px);line-height:1.05;letter-spacing:-.015em;margin:8px 0 26px;max-width:18ch}
+.kpis{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid var(--hero-line);padding-top:18px}
+.kpi{padding:0 28px 0 0;margin-right:28px;border-right:1px solid var(--hero-line)}
+.kpi:last-child{border-right:0;margin-right:0}
+.kpi b{display:block;font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;
+  font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.kpi span{display:block;color:var(--hero-muted);font-size:13px;margin-top:6px}
+.home-body{padding:0 20px 48px}
+.boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:-64px}
+.board{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;
+  display:flex;flex-direction:column;color:inherit;text-decoration:none;
+  box-shadow:0 1px 2px rgba(16,32,48,.06),0 8px 24px rgba(16,32,48,.06);transition:transform .15s ease,box-shadow .15s ease}
+.board:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(16,32,48,.08),0 14px 32px rgba(16,32,48,.10)}
+.b-head{display:flex;align-items:center;gap:12px}
+.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:16px;
+  background:var(--acc-bg);color:var(--acc)}
+.b-head .who{font-size:13px;color:var(--muted);line-height:1.2}
+.b-head h2{margin:2px 0 0;font-size:17px;font-weight:600;color:var(--text);line-height:1.25}
+.b-count{display:flex;align-items:baseline;gap:10px;margin:18px 0 10px}
+.b-count b{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;
+  font-size:56px;line-height:.9;color:var(--acc);font-variant-numeric:tabular-nums}
+.b-count span{color:var(--muted);font-size:14px;line-height:1.3}
+.meter{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--weak-bg);gap:2px}
+.meter i{display:block;height:100%}
+.meter .m-s{background:var(--strong)} .meter .m-m{background:var(--maybe)} .meter .m-w{background:var(--line)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:8px 0 16px}
+.legend em{font-style:normal;display:inline-flex;align-items:center;gap:6px}
+.legend em::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+.tops{list-style:none;margin:0 0 16px;padding:0;border-top:1px solid var(--line)}
+.tops li{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
+.chip{font-size:12.5px;white-space:nowrap;font-weight:600;text-align:center;border-radius:6px;padding:3px 0;font-variant-numeric:tabular-nums}
+.chip.s-strong{background:var(--strong-bg);color:var(--strong)} .chip.s-maybe{background:var(--maybe-bg);color:var(--maybe)}
+.chip.s-weak{background:var(--weak-bg);color:var(--weak)}
+.tops .t{font-size:14px;line-height:1.3;font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tops .c{font-size:12.5px;color:var(--muted);margin-top:2px}
+.tops .none{display:block;color:var(--muted);font-size:14px}
+.b-go{margin-top:auto;display:flex;justify-content:space-between;align-items:center;
+  background:var(--acc);color:var(--surface);border-radius:8px;padding:10px 14px;font-weight:500;font-size:14px}
+.b-go small{font-weight:400;opacity:.85;font-size:12.5px}
+.home-foot{max-width:1040px;margin:22px auto 0;font-size:13px;color:var(--muted)}
+@media (max-width:540px){.kpis{display:grid;grid-template-columns:repeat(3,1fr)}.kpi{padding:0 10px 0 0;margin-right:10px}.kpi b{font-size:28px}.kpi span{font-size:12px}.hero{padding-bottom:84px}}
+@media (prefers-reduced-motion:reduce){.board{transition:none}.board:hover{transform:none}}
 @media (max-width:540px){
   .job{grid-template-columns:48px 1fr;gap:2px 12px}
   .score b{font-size:26px}
@@ -112,11 +146,15 @@ footer ul{padding-left:18px;margin:6px 0 0}
 <body>
 <div class="wrap">
   <section id="home" hidden>
-    <p class="home-sub" id="home-date" style="margin:0"></p>
-    <h1 class="home-hello" id="home-hello">Job shortlist</h1>
-    <p class="home-sub" id="home-sub">Loading today’s jobs…</p>
-    <div class="boards" id="boards"></div>
-    <p class="home-foot" id="home-foot"></p>
+    <div class="hero"><div class="hero-in">
+      <p class="date" id="home-date"></p>
+      <h1 id="home-hello">Job shortlist</h1>
+      <div class="kpis" id="kpis"></div>
+    </div></div>
+    <div class="home-body">
+      <div class="boards" id="boards"></div>
+      <p class="home-foot" id="home-foot"></p>
+    </div>
   </section>
 
   <section id="board-view" hidden>
@@ -284,26 +322,39 @@ footer ul{padding-left:18px;margin:6px 0 0}
     d.tabs.forEach(function(t){ if(people.indexOf(t.person)<0) people.push(t.person); });
     document.getElementById("home-date").textContent = now.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long"});
     document.getElementById("home-hello").textContent = hello + ", " + people.join(" and ") + ".";
-    var totalNew = d.jobs.filter(function(j){ return j.first_seen===d.date; }).length;
-    var applied = Object.keys(statuses).filter(function(id){ return ["applied","interview","offer","rejected"].indexOf(statuses[id].value)>=0; }).length;
-    document.getElementById("home-sub").textContent = !d.updated_at ? "The first job search hasn’t run yet. It runs every morning at 8."
-      : totalNew + " new " + (totalNew===1?"job":"jobs") + " picked for you today" + (applied ? ", and " + applied + " application" + (applied===1?"":"s") + " tracked on this device." : ". Pick a shortlist to start.");
 
-    document.getElementById("boards").innerHTML = d.tabs.map(function(t){
-      var mine = d.jobs.filter(function(j){ return j.tab===t.id; });
+    var APPLIED = ["applied","interview","offer","rejected"];
+    var visible = function(j){ var s=statuses[j.id]; return !s || s.value!=="hidden"; };
+    var today = d.jobs.filter(function(j){ return j.first_seen===d.date && visible(j); });
+    var strong = d.jobs.filter(function(j){ return visible(j) && fit(j).cls==="s-strong"; });
+    var applied = Object.keys(statuses).filter(function(id){ return APPLIED.indexOf(statuses[id].value)>=0; }).length;
+    var kpi = function(n,l){ return '<div class="kpi"><b>'+n+'</b><span>'+l+'</span></div>'; };
+    document.getElementById("kpis").innerHTML = !d.updated_at ? kpi("0","jobs yet. First search runs at 8 AM")
+      : kpi(today.length,"new today") + kpi(strong.length,"strong matches this week") + kpi(applied,"applications tracked");
+
+    document.getElementById("boards").innerHTML = d.tabs.map(function(t, i){
+      var mine = d.jobs.filter(function(j){ return j.tab===t.id && visible(j); });
       var fresh = mine.filter(function(j){ return j.first_seen===d.date && !statuses[j.id]; });
-      var app = Object.keys(statuses).filter(function(id){ var s=statuses[id]; return s.tab===t.id && ["applied","interview","offer","rejected"].indexOf(s.value)>=0; }).length;
-      var best = mine.filter(function(j){ var s=statuses[j.id]; return !s || s.value!=="hidden"; })
-                     .sort(function(a,b){ return fit(b).sort - fit(a).sort; })[0];
+      var cnt = {"s-strong":0,"s-maybe":0,"s-weak":0};
+      mine.forEach(function(j){ cnt[fit(j).cls]++; });
+      var total = mine.length || 1;
+      var seg = function(c,k){ return cnt[k] ? '<i class="'+c+'" style="width:'+(100*cnt[k]/total)+'%"></i>' : ""; };
+      var app = Object.keys(statuses).filter(function(id){ var s=statuses[id]; return s.tab===t.id && APPLIED.indexOf(s.value)>=0; }).length;
+      var top = mine.slice().sort(function(a,b){ return fit(b).sort - fit(a).sort; }).slice(0,3);
       var role = t.label.indexOf(",")>=0 ? t.label.split(",").slice(1).join(",").trim() : t.label;
       role = role.charAt(0).toUpperCase() + role.slice(1) + " roles";
-      var bestHTML = best ? '<div class="best">Best match: <b>'+esc(best.title)+'</b> at '+esc(best.company)+' <span class="sc '+fit(best).cls+'">'+esc(fit(best).value)+(fit(best).label.indexOf("/10")>=0?"/10":"%")+'</span></div>'
-                          : '<div class="best">No matches yet this week.</div>';
-      return '<a class="board" href="#'+esc(t.id)+'">' +
-        '<span class="who">'+esc(t.person)+'</span><h2>'+esc(role)+'</h2>' +
-        '<span class="big">'+fresh.length+'</span><span class="big-l">new today</span>' +
-        '<span class="stats">'+mine.length+' this week, '+app+' applied</span>' +
-        bestHTML + '<span class="go">Open shortlist</span></a>';
+      var tops = top.length ? top.map(function(j){
+          var f = fit(j), val = f.label.indexOf("/10")>=0 ? f.value + "/10" : f.value + "%";
+          return '<li><span class="chip '+f.cls+'">'+esc(val)+'</span><div><div class="t">'+esc(j.title)+'</div><div class="c">'+esc(j.company)+(j.work_mode?", "+esc(j.work_mode):"")+'</div></div></li>';
+        }).join("") : '<li><span class="none">No matches yet this week.</span></li>';
+      var accent = "--acc:var(--acc-"+(i%3)+");--acc-bg:var(--acc-"+(i%3)+"-bg)";
+      return '<a class="board" href="#'+esc(t.id)+'" style="'+accent+'">' +
+        '<div class="b-head"><span class="avatar">'+esc(t.person.charAt(0))+'</span><div><div class="who">'+esc(t.person)+'</div><h2>'+esc(role)+'</h2></div></div>' +
+        '<div class="b-count"><b>'+fresh.length+'</b><span>new today<br>'+mine.length+' this week</span></div>' +
+        '<div class="meter" aria-hidden="true">'+seg("m-s","s-strong")+seg("m-m","s-maybe")+seg("m-w","s-weak")+'</div>' +
+        '<div class="legend"><em style="--c:var(--strong)">'+cnt["s-strong"]+' strong</em><em style="--c:var(--maybe)">'+cnt["s-maybe"]+' maybe</em><em style="--c:var(--line)">'+cnt["s-weak"]+' weak</em></div>' +
+        '<ul class="tops">'+tops+'</ul>' +
+        '<span class="b-go">Open shortlist<small>'+app+' applied</small></span></a>';
     }).join("");
 
     var foot = document.getElementById("home-foot");
