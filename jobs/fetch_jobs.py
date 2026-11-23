@@ -105,6 +105,10 @@ def fetch_jobspy(tab):
 
     rows, errors = [], []
     places = [f"{c}, India" for c in tab["cities"]]
+    def blocked(df):
+        errs = df.attrs.get("errors") or {}
+        return any("429" in str(v) for k, v in errs.items() if "linkedin" in str(k).lower())
+
     for place in places:
         try:
             df = scrape_jobs(
@@ -117,6 +121,25 @@ def fetch_jobspy(tab):
                 fetch_description=True,
                 verbose=0,
             )
+            if blocked(df):
+                # LinkedIn's rate limit clears in about a minute: wait, then retry LinkedIn once.
+                log(f"  linkedin blocked for {place}; retrying in 65 s")
+                time.sleep(65)
+                try:
+                    retry = scrape_jobs(
+                        site_name=["linkedin"], search_term=tab["query"], location=place,
+                        results_wanted=SETTINGS["jobspy_results_per_city"],
+                        hours_old=SETTINGS["hours_old"], fetch_description=True, verbose=0,
+                    )
+                    if not blocked(retry):
+                        errs = dict(df.attrs.get("errors") or {})
+                        errs = {k: v for k, v in errs.items() if "linkedin" not in str(k).lower()}
+                        import pandas as pd
+                        df = pd.concat([df, retry], ignore_index=True)
+                        df.attrs["errors"] = errs
+                        log(f"  linkedin retry for {place} worked")
+                except Exception as exc:
+                    errors.append(f"linkedin retry ({place}): {exc}")
             for err_site, err in (df.attrs.get("errors") or {}).items():
                 errors.append(f"{err_site} ({place}): {err}")
             for rec in df.to_dict("records"):
