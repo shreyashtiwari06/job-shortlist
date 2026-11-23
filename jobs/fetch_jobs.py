@@ -59,6 +59,9 @@ def fingerprint(title, company):
 
 EXP_RANGE = re.compile(r"(\d{1,2})\s*(?:\+)?\s*(?:-|to|–)\s*(\d{1,2})\s*\+?\s*(?:years|yrs|year)", re.I)
 EXP_MIN = re.compile(r"(?:minimum|min\.?|at least|atleast)?\s*(\d{1,2})\s*\+?\s*(?:years|yrs)", re.I)
+# "6+ software engineering experience", "minimum 5 experience", "7+ of experience" (no "years" word)
+EXP_NOUNIT = re.compile(r"(?<![\d.])(\d{1,2})\s*\+\s*(?:of\s+)?(?:[a-z/&-]+\s+){0,4}experience"
+                        r"|(?:minimum|min\.?|at least|atleast)\s+(\d{1,2})\s+(?:[a-z/&-]+\s+){0,4}experience", re.I)
 
 
 def parse_experience(text):
@@ -72,6 +75,11 @@ def parse_experience(text):
     if m:
         lo = int(m.group(1))
         if lo <= 30:
+            return lo, None
+    m = EXP_NOUNIT.search(text)
+    if m:
+        lo = int(m.group(1) or m.group(2))
+        if 1 <= lo <= 20:
             return lo, None
     return None, None
 
