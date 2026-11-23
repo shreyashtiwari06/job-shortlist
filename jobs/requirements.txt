@@ -1,0 +1,2 @@
+python-jobspy==1.4.1
+apify-client==3.5.0
