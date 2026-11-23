@@ -1,0 +1,48 @@
+name: Daily jobs
+
+on:
+  schedule:
+    - cron: "30 2 * * *"   # 8:00 AM India time, every day
+  workflow_dispatch:        # lets you run it any time from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-jobs
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: jobs/requirements.txt
+
+      - name: Install
+        run: pip install -r jobs/requirements.txt
+
+      - name: Fetch and score jobs
+        env:
+          APIFY_TOKEN_SHREYASH: ${{ secrets.APIFY_TOKEN_SHREYASH }}
+          APIFY_TOKEN_AKANKSHA: ${{ secrets.APIFY_TOKEN_AKANKSHA }}
+        run: python jobs/fetch_jobs.py
+
+      - name: Save to repo
+        run: |
+          git config user.name "jobs-bot"
+          git config user.email "jobs-bot@users.noreply.github.com"
+          git add jobs/data/jobs.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Jobs for $(TZ=Asia/Kolkata date +%F)"
+            git pull --rebase
+            git push
+          fi
