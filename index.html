@@ -199,9 +199,14 @@ footer ul{padding-left:18px;margin:6px 0 0}
       render(); });
   });
 
+  function aiFor(job){
+    if(!job) return null;
+    return state.scored[job.tab + ":" + job.id] || state.scored[job.id] || null;
+  }
+
   function fit(job){
-    var ai = state.scored[job.id];
-    if(ai && typeof ai.score === "number") return { value: ai.score, label:"AI fit /10", cls: ai.score>=7.5?"s-strong":ai.score>=5.5?"s-maybe":"s-weak", sort: ai.score*10 };
+    var ai = aiFor(job);
+    if(ai && typeof ai.score === "number") return { value: ai.score, label:"AI fit /10", cls: ai.score>=7?"s-strong":ai.score>=5?"s-maybe":"s-weak", sort: ai.score*10 };
     var k = job.keyword_score||0;
     return { value: k, label:"keyword %", cls: k>=70?"s-strong":k>=50?"s-maybe":"s-weak", sort: k-1 };
   }
@@ -237,7 +242,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
   var STATUS_OPTS = [["","Not applied"],["saved","Saved for later"],["applied","Applied"],["interview","Interview"],["offer","Offer"],["rejected","Rejected"],["hidden","Not interested"]];
 
   function jobHTML(j){
-    var f = fit(j), ai = state.scored[j.id] || {};
+    var f = fit(j), ai = aiFor(j) || {};
     var st = (statuses[j.id] && statuses[j.id].value) || "";
     var verdict = ai.verdict ? '<span class="verdict v-'+esc(String(ai.verdict).toLowerCase())+'">'+esc(ai.verdict)+'.</span> ' : "";
     var why = ai.reason ? '<p class="why">'+verdict+esc(ai.reason)+'</p>' : "";
@@ -323,7 +328,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
     renderSources();
   }
 
-  function findJob(id){ return (state.data.jobs.filter(function(j){ return j.id===id; })[0]) || snapshots[id]; }
+  function findJob(id){ return (state.data.jobs.filter(function(j){ return j.id===id && j.tab===state.tab; })[0]) || (state.data.jobs.filter(function(j){ return j.id===id; })[0]) || snapshots[id]; }
 
   function copy(text){
     if(navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
@@ -341,7 +346,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
   }
 
   function bindJob(li){
-    var id = li.dataset.id, job = findJob(id), ai = state.scored[id] || {};
+    var id = li.dataset.id, job = findJob(id), ai = aiFor(job) || {};
     li.querySelector("[data-apply]").addEventListener("click", function(){
       var go = function(){ window.open(job.apply_url || job.url, "_blank", "noopener"); };
       if(ai.message){ copy(ai.message).then(function(){ toast("Message copied. Paste it in the application."); go(); }); }
