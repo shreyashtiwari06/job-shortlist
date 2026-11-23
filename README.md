@@ -54,7 +54,7 @@ Tap "Copy message and apply": the message is copied and the job opens. Paste it 
 {
   "date": "2026-11-24",
   "jobs": {
-    "<job id from jobs.json>": {
+    "<tab id>:<job id>": {
       "score": 8.5,
       "verdict": "Apply",
       "reason": "One line on why it fits.",
@@ -66,4 +66,4 @@ Tap "Copy message and apply": the message is copied and the job opens. Paste it 
 }
 ```
 
-`verdict` is Apply, Maybe or Skip. Scores are out of 10.
+Keys are the tab id and the job id joined by a colon, for example `akanksha-java:093c402d4458`, because the same job can appear in two tabs with different scores. `verdict` is Apply, Maybe or Skip. Scores are out of 10.
