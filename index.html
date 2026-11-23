@@ -73,6 +73,28 @@ summary{cursor:pointer;color:var(--ink);font-size:14px}
 .kit pre{white-space:pre-wrap;font:inherit;font-size:14px;margin:0 0 10px}
 .kit ul{margin:0 0 10px;padding-left:18px;font-size:14px}
 .empty{padding:40px 0;color:var(--muted)}
+header h1 a{color:inherit;text-decoration:none}
+.back{display:inline-block;margin-top:10px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+.home-hello{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;
+  font-size:clamp(30px,6vw,46px);line-height:1.05;color:var(--ink);margin:6px 0 6px;letter-spacing:-.015em}
+.home-sub{color:var(--muted);margin:0 0 28px;font-size:15px;max-width:60ch}
+.boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.board{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;gap:2px;color:inherit;text-decoration:none}
+.board:hover{border-color:var(--ink)}
+.board .who{font-size:13px;color:var(--muted)}
+.board h2{margin:0 0 10px;font-size:18px;font-weight:600;color:var(--ink)}
+.board .big{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;
+  font-size:64px;line-height:.95;font-variant-numeric:tabular-nums;color:var(--ink)}
+.board .big-l{font-size:14px;color:var(--muted);margin-bottom:12px}
+.board .stats{font-size:14px;margin-bottom:12px}
+.board .best{font-size:14px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+.board .best b{font-weight:600}
+.board .best .sc{font-weight:600}
+.sc.s-strong{color:var(--strong)} .sc.s-maybe{color:var(--maybe)} .sc.s-weak{color:var(--weak)}
+.board .go{margin-top:14px;font-weight:500;color:var(--ink);font-size:14px}
+.home-foot{margin-top:26px;font-size:13px;color:var(--muted)}
 .empty strong{display:block;color:var(--text);font-size:16px;margin-bottom:4px}
 footer{margin-top:28px;font-size:13px;color:var(--muted)}
 footer ul{padding-left:18px;margin:6px 0 0}
@@ -89,8 +111,18 @@ footer ul{padding-left:18px;margin:6px 0 0}
 </head>
 <body>
 <div class="wrap">
+  <section id="home" hidden>
+    <p class="home-sub" id="home-date" style="margin:0"></p>
+    <h1 class="home-hello" id="home-hello">Job shortlist</h1>
+    <p class="home-sub" id="home-sub">Loading today’s jobs…</p>
+    <div class="boards" id="boards"></div>
+    <p class="home-foot" id="home-foot"></p>
+  </section>
+
+  <section id="board-view" hidden>
   <header>
-    <h1>Job shortlist</h1>
+    <a class="back" href="#">All shortlists</a>
+    <h1><a href="#">Job shortlist</a></h1>
     <p id="updated">Loading today’s jobs…</p>
   </header>
 
@@ -104,6 +136,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
 
   <ol class="list" id="list"></ol>
   <footer id="sources"></footer>
+  </section>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -134,17 +167,19 @@ footer ul{padding-left:18px;margin:6px 0 0}
     var hash = location.hash.replace("#","");
     var ids = state.data.tabs.map(function(t){ return t.id; });
     state.tab = ids.indexOf(hash) >= 0 ? hash : ids[0];
+    state.page = ids.indexOf(hash) >= 0 ? "board" : "home";
     if(!state.data.updated_at){
       document.getElementById("updated").textContent = "No run yet. Open the Actions tab on GitHub, pick Daily jobs and press Run workflow.";
-      render(); return;
+      show(); return;
     }
     var when = new Date(state.data.updated_at);
     var aiDate = res[1] && res[1].date;
     document.getElementById("updated").textContent =
       "Collected " + when.toLocaleString("en-IN",{weekday:"short",day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}) +
       (aiDate ? ". AI review done for " + new Date(aiDate+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short"}) + "." : ". AI review not done yet; showing keyword match.");
-    render();
+    show();
   }).catch(function(err){
+    document.getElementById("board-view").hidden = false;
     document.getElementById("updated").textContent = "";
     document.getElementById("list").innerHTML =
       '<li class="empty"><strong>No job list found yet.</strong>Run the “Daily jobs” workflow once from the Actions tab on GitHub, then refresh this page. ('+esc(err.message)+')</li>';
@@ -152,7 +187,10 @@ footer ul{padding-left:18px;margin:6px 0 0}
 
   window.addEventListener("hashchange", function(){
     var h = location.hash.replace("#","");
-    if(state.data && state.data.tabs.some(function(t){ return t.id===h; })){ state.tab=h; render(); }
+    if(!state.data) return;
+    if(state.data.tabs.some(function(t){ return t.id===h; })){ state.tab=h; state.page="board"; }
+    else { state.page="home"; }
+    show(); window.scrollTo(0,0);
   });
 
   document.querySelectorAll(".view").forEach(function(b){
@@ -225,6 +263,49 @@ footer ul{padding-left:18px;margin:6px 0 0}
         '<button class="btn primary" data-apply>'+(ai.message?"Copy message and apply":"Open and apply")+'</button>' +
         '<select class="status" aria-label="Status">'+STATUS_OPTS.map(function(o){ return '<option value="'+o[0]+'"'+(o[0]===st?" selected":"")+'>'+o[1]+'</option>'; }).join("")+'</select>' +
       '</div>' + kit + '</li>';
+  }
+
+  function show(){
+    var home = state.page === "home";
+    document.getElementById("home").hidden = !home;
+    document.getElementById("board-view").hidden = home;
+    if(home) renderHome(); else render();
+  }
+
+  function renderHome(){
+    var d = state.data, now = new Date(), h = now.getHours();
+    var hello = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
+    var people = [];
+    d.tabs.forEach(function(t){ if(people.indexOf(t.person)<0) people.push(t.person); });
+    document.getElementById("home-date").textContent = now.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long"});
+    document.getElementById("home-hello").textContent = hello + ", " + people.join(" and ") + ".";
+    var totalNew = d.jobs.filter(function(j){ return j.first_seen===d.date; }).length;
+    var applied = Object.keys(statuses).filter(function(id){ return ["applied","interview","offer","rejected"].indexOf(statuses[id].value)>=0; }).length;
+    document.getElementById("home-sub").textContent = !d.updated_at ? "The first job search hasn’t run yet. It runs every morning at 8."
+      : totalNew + " new " + (totalNew===1?"job":"jobs") + " picked for you today" + (applied ? ", and " + applied + " application" + (applied===1?"":"s") + " tracked on this device." : ". Pick a shortlist to start.");
+
+    document.getElementById("boards").innerHTML = d.tabs.map(function(t){
+      var mine = d.jobs.filter(function(j){ return j.tab===t.id; });
+      var fresh = mine.filter(function(j){ return j.first_seen===d.date && !statuses[j.id]; });
+      var app = Object.keys(statuses).filter(function(id){ var s=statuses[id]; return s.tab===t.id && ["applied","interview","offer","rejected"].indexOf(s.value)>=0; }).length;
+      var best = mine.filter(function(j){ var s=statuses[j.id]; return !s || s.value!=="hidden"; })
+                     .sort(function(a,b){ return fit(b).sort - fit(a).sort; })[0];
+      var role = t.label.indexOf(",")>=0 ? t.label.split(",").slice(1).join(",").trim() : t.label;
+      role = role.charAt(0).toUpperCase() + role.slice(1) + " roles";
+      var bestHTML = best ? '<div class="best">Best match: <b>'+esc(best.title)+'</b> at '+esc(best.company)+' <span class="sc '+fit(best).cls+'">'+esc(fit(best).value)+(fit(best).label.indexOf("/10")>=0?"/10":"%")+'</span></div>'
+                          : '<div class="best">No matches yet this week.</div>';
+      return '<a class="board" href="#'+esc(t.id)+'">' +
+        '<span class="who">'+esc(t.person)+'</span><h2>'+esc(role)+'</h2>' +
+        '<span class="big">'+fresh.length+'</span><span class="big-l">new today</span>' +
+        '<span class="stats">'+mine.length+' this week, '+app+' applied</span>' +
+        bestHTML + '<span class="go">Open shortlist</span></a>';
+    }).join("");
+
+    var foot = document.getElementById("home-foot");
+    if(d.updated_at){
+      var when = new Date(d.updated_at);
+      foot.textContent = "Last search " + when.toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}) + ". New jobs arrive every morning at 8.";
+    }
   }
 
   function render(){
