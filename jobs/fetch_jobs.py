@@ -1,6 +1,6 @@
 """Daily job fetcher for the Jobs page.
 
-Collects fresh jobs from LinkedIn and Indeed (JobSpy, free) and Naukri (Apify),
+Collects fresh jobs from LinkedIn and Indeed (JobSpy, free) and Naukri, Instahyre and Hirist (Apify),
 filters them per tab, gives each a keyword score and keeps a rolling 7-day list
 in jobs/data/jobs.json. AI scoring is added separately in jobs/data/scored.json.
 
@@ -216,6 +216,102 @@ def fetch_naukri(tab):
     return rows, []
 
 
+# Instahyre and Hirist (Apify). Both actors keep their own memory of jobs they
+# already returned (monitor mode), so each day you only pay for new listings.
+
+PLACES_EXTRA = {"Gurugram": "Gurgaon", "Bengaluru": "Bangalore", "Delhi": "Delhi NCR"}
+
+
+def _run_extra(client, source, run_input, max_items):
+    cfg = SETTINGS["extra_sources"][source]
+    cap = Decimal(str(round(max_items * cfg["price_per_job_usd"] * 1.5 + 0.01, 3)))
+    run = client.actor(cfg["actor"]).call(run_input=run_input, max_items=max_items, max_total_charge_usd=cap)
+    if run is None:
+        raise RuntimeError("run did not finish")
+    ds_id = run.get("defaultDatasetId") if isinstance(run, dict) else getattr(run, "default_dataset_id", None)
+    return list(client.dataset(ds_id).iterate_items())
+
+
+def fetch_extra(tab):
+    """Instahyre and Hirist for one tab. Returns (rows, errors)."""
+    extra = tab.get("extra") or {}
+    if not extra:
+        return [], []
+    token = os.environ.get(tab["apify_token_env"], "").strip()
+    if not token:
+        return [], [f"instahyre/hirist: {tab['apify_token_env']} is not set, skipped"]
+
+    from apify_client import ApifyClient
+
+    client = ApifyClient(token)
+    cities = [PLACES_EXTRA.get(c, c) for c in tab["cities"]]
+    years = tab["experience"]["naukri_years"]
+    rows, errors = [], []
+
+    ih = extra.get("instahyre")
+    if ih and ih.get("max_items"):
+        run_input = {
+            "skills": ih["skills"],
+            "locations": cities + (["Work From Home"] if tab.get("include_remote") else []),
+            "years": years, "companySize": "any", "jobType": "full-time",
+            "maxItems": ih["max_items"], "monitorMode": True,
+        }
+        if ih.get("job_functions"):
+            run_input["jobFunctions"] = ih["job_functions"]
+        try:
+            items = _run_extra(client, "instahyre", run_input, ih["max_items"])
+            for it in items:
+                if clean(it.get("changeType")).lower() == "removed":
+                    continue
+                locs = it.get("locations") or []
+                rows.append({
+                    "source": "Instahyre", "title": clean(it.get("title")),
+                    "company": clean(it.get("employerName")), "location": clean(locs),
+                    "url": clean(it.get("jobUrl")), "apply_url": clean(it.get("jobUrl")),
+                    "posted": clean(it.get("scrapedAt")), "description": "",
+                    "is_remote": any("home" in clean(l).lower() or "remote" in clean(l).lower() for l in locs),
+                    "experience_text": "", "salary": "", "skills": clean(it.get("keywords")), "emails": "",
+                })
+            log(f"  instahyre: {len(items)}")
+        except Exception as exc:
+            errors.append(f"instahyre: {exc}")
+
+    hi = extra.get("hirist")
+    if hi and hi.get("max_items"):
+        run_input = {
+            "site": "hirist", "queries": hi["queries"],
+            "locations": cities + (["Remote"] if tab.get("include_remote") else []),
+            "minExperience": years, "maxExperience": tab["experience"]["max"],
+            "maxItems": hi["max_items"], "includeDescription": True, "onlyNew": True,
+        }
+        try:
+            items = _run_extra(client, "hirist", run_input, hi["max_items"])
+            for it in items:
+                lo, hm = it.get("experienceMin"), it.get("experienceMax")
+                smin, smax = it.get("salaryMin"), it.get("salaryMax")
+                salary = ""
+                if isinstance(smin, (int, float)) and isinstance(smax, (int, float)):
+                    salary = f"{smin/100000:g}-{smax/100000:g} LPA"
+                rows.append({
+                    "source": "Hirist", "title": clean(it.get("title")),
+                    "company": clean(it.get("company")) or "Confidential",
+                    "location": clean(it.get("locations")),
+                    "url": clean(it.get("jobUrl")),
+                    "apply_url": clean(it.get("applyUrl")) or clean(it.get("jobUrl")),
+                    "posted": clean(it.get("postedAt")),
+                    "description": clean(it.get("description")) or clean(it.get("descriptionSnippet")),
+                    "is_remote": it.get("remote") is True,
+                    "experience_text": f"{lo}-{hm} Yrs" if lo is not None and hm is not None else "",
+                    "exp_min": lo if isinstance(lo, (int, float)) else None,
+                    "exp_max": hm if isinstance(hm, (int, float)) else None,
+                    "salary": salary, "skills": clean(it.get("skills")), "emails": "",
+                })
+            log(f"  hirist: {len(items)}")
+        except Exception as exc:
+            errors.append(f"hirist: {exc}")
+    return rows, errors
+
+
 # ---------------------------------------------------------------- scoring
 
 def score_job(job, tab):
@@ -311,6 +407,9 @@ def main():
             n_rows, n_err = fetch_naukri(tab)
             rows += n_rows
             errors += n_err
+            x_rows, x_err = fetch_extra(tab)
+            rows += x_rows
+            errors += x_err
 
         candidates, dropped = [], {}
         for job in rows:
