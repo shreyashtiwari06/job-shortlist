@@ -354,5 +354,5 @@ def main():
     log(f"saved {len(out['jobs'])} jobs ({len(new_jobs)} new) to {JOBS_FILE}")
 
 
-if __name__ == "__main":
+if __name__ == "__main__":
     main()
