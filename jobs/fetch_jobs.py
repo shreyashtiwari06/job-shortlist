@@ -1,4 +1,4 @@
-a"""Daily job fetcher for the Jobs page.
+"""Daily job fetcher for the Jobs page.
 
 Collects fresh jobs from LinkedIn and Indeed (JobSpy, free) and Naukri (Apify),
 filters them per tab, gives each a keyword score and keeps a rolling 7-day list
@@ -15,7 +15,7 @@ import re
 import sys
 import time
 from datetime import datetime, timedelta, timezone
-from decimal import Decimala
+from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -354,5 +354,5 @@ def main():
     log(f"saved {len(out['jobs'])} jobs ({len(new_jobs)} new) to {JOBS_FILE}")
 
 
-if __name__ == "__main__":
+if __name__ == "__main":
     main()
