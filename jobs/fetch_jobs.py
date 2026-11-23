@@ -46,7 +46,7 @@ def clean(value):
 
 
 def job_id(url, title, company):
-    base = url.split("?")[0].lower() if url else f"{title}|{company}".lower()
+    base = url.strip().lower() if url else f"{title}|{company}".lower()
     return hashlib.sha1(base.encode()).hexdigest()[:12]
 
 
