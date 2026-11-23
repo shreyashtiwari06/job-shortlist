@@ -1,6 +1,6 @@
 # Job shortlist: setup and daily use
 
-What it does: every morning at 8 AM India time, GitHub runs `jobs/fetch_jobs.py`. It collects jobs posted in the last 24 hours from LinkedIn and Indeed (free, through JobSpy) and Naukri (through Apify), filters out the wrong ones, gives each a keyword match score and saves them to `jobs/data/jobs.json`. Vercel then updates your Vercel link by itself. When you send "check jobs" to Claude, it adds an AI score, a reason, missing skills, a ready message and resume points in `jobs/data/scored.json`.
+What it does: every morning at 8 AM India time, GitHub runs `jobs/fetch_jobs.py`. It collects fresh jobs from LinkedIn and Indeed (free, through JobSpy) and from Naukri, Instahyre and Hirist (through Apify), filters out the wrong ones, gives each a keyword match score and saves them to `jobs/data/jobs.json`. Vercel then updates your Vercel link by itself. When you send "check jobs" to Claude, it adds an AI score, a reason, missing skills, a ready message and resume points in `jobs/data/scored.json`.
 
 ## Files
 
@@ -41,9 +41,12 @@ Tap "Copy message and apply": the message is copied and the job opens. Paste it 
 
 ## Cost and limits
 
-- JobSpy: free. LinkedIn sometimes blocks requests from GitHub's servers; when that happens you will see it in the run notes and still get Indeed and Naukri.
-- Naukri through Apify: about $0.00125 per job. Each tab saves at most 30 Naukri jobs a day and each run is capped at $0.06, so Shreyash's two tabs stay around $2 to $4 a month and Akanksha's around $1, inside the free $5 each.
-- Change cities, search terms or keywords any time in `jobs/config.json`.
+- LinkedIn and Indeed through JobSpy: free. LinkedIn sometimes blocks requests from GitHub's servers; the run notes show it when that happens.
+- Naukri through Apify: about $0.00125 per job, at most 30 per tab per day.
+- Instahyre ($0.0015 per job) and Hirist ($0.002 per job) through Apify. Both remember what they returned before, so you only pay for new listings. Daily caps per tab are in `jobs/config.json` under `extra`: 8 each for Shreyash's two tabs, 15 each for Akanksha's.
+- Expected monthly cost at the full caps: about $4 for Shreyash and about $2.70 for Akanksha, inside each free $5. Usually less, since many days have fewer new jobs than the caps.
+- Instahyre doesn't share job descriptions, so its jobs are scored on title and skills only.
+- Change cities, search terms, keywords or caps any time in `jobs/config.json`.
 
 ## scored.json format
 
