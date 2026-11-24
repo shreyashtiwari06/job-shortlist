@@ -191,7 +191,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
     </div></div>
     <div class="bbody">
       <div class="views" role="group" aria-label="Show">
-        <button class="view" data-view="new" aria-pressed="true">New today</button>
+        <button class="view" data-view="new" aria-pressed="true">Latest search</button>
         <button class="view" data-view="week" aria-pressed="false">This week</button>
         <button class="view" data-view="mine" aria-pressed="false">My applications</button>
       </div>
@@ -358,8 +358,8 @@ footer ul{padding-left:18px;margin:6px 0 0}
     var strong = d.jobs.filter(function(j){ return visible(j) && fit(j).cls==="s-strong"; });
     var applied = Object.keys(statuses).filter(function(id){ return APPLIED.indexOf(statuses[id].value)>=0; }).length;
     var kpi = function(n,l){ return '<div class="kpi"><b>'+n+'</b><span>'+l+'</span></div>'; };
-    document.getElementById("kpis").innerHTML = !d.updated_at ? kpi("0","jobs yet. First search runs at 8 AM")
-      : kpi(today.length,"new today") + kpi(strong.length,"strong matches this week") + kpi(applied,"applications tracked");
+    document.getElementById("kpis").innerHTML = !d.updated_at ? kpi("0","jobs yet. The search runs every night at 9 PM")
+      : kpi(today.length,"new in the latest search") + kpi(strong.length,"strong matches this week") + kpi(applied,"applications tracked");
 
     document.getElementById("boards").innerHTML = d.tabs.map(function(t, i){
       var mine = d.jobs.filter(function(j){ return j.tab===t.id && visible(j); });
@@ -379,7 +379,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
       var accent = "--acc:var(--acc-"+(i%3)+");--acc-bg:var(--acc-"+(i%3)+"-bg)";
       return '<a class="board" href="#'+esc(t.id)+'" style="'+accent+'">' +
         '<div class="b-head"><span class="avatar">'+esc(t.person.charAt(0))+'</span><div><div class="who">'+esc(t.person)+'</div><h2>'+esc(role)+'</h2></div></div>' +
-        '<div class="b-count"><b>'+fresh.length+'</b><span>new today<br>'+mine.length+' this week</span></div>' +
+        '<div class="b-count"><b>'+fresh.length+'</b><span>new in latest search<br>'+mine.length+' this week</span></div>' +
         '<div class="meter" aria-hidden="true">'+seg("m-s","s-strong")+seg("m-m","s-maybe")+seg("m-w","s-weak")+'</div>' +
         '<div class="legend"><em style="--c:var(--strong)">'+cnt["s-strong"]+' strong</em><em style="--c:var(--maybe)">'+cnt["s-maybe"]+' maybe</em><em style="--c:var(--line)">'+cnt["s-weak"]+' weak</em></div>' +
         '<ul class="tops">'+tops+'</ul>' +
@@ -389,7 +389,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
     var foot = document.getElementById("home-foot");
     if(d.updated_at){
       var when = new Date(d.updated_at);
-      foot.textContent = "Last search " + when.toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}) + ". New jobs arrive every morning at 8.";
+      foot.textContent = "Last search " + when.toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}) + ". New jobs arrive every night around 9 PM.";
     }
   }
 
@@ -414,7 +414,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
     renderTabs();
     var items = jobsForView(), list = document.getElementById("list");
     if(!items.length){
-      var msg = state.view==="new" ? ["Nothing new in this tab today.","Check “This week” for earlier jobs, or come back after tomorrow’s 8 AM run."]
+      var msg = state.view==="new" ? ["Nothing new from the latest search.","Check “This week” for earlier jobs, or come back after tonight’s 9 PM search."]
               : state.view==="mine" ? ["No applications tracked here yet.","After you apply, set the job’s status to Applied and it will stay listed here."]
               : ["No jobs in the last 7 days.","The source notes below show what happened on the last run."];
       list.innerHTML = '<li class="empty"><strong>'+msg[0]+'</strong>'+msg[1]+'</li>';
