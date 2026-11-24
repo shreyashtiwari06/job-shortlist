@@ -1,6 +1,6 @@
 # Job shortlist: setup and daily use
 
-What it does: every morning at 8 AM India time, GitHub runs `jobs/fetch_jobs.py`. It collects fresh jobs from LinkedIn and Indeed (free, through JobSpy) and from Naukri, Instahyre and Hirist (through Apify), filters out the wrong ones, gives each a keyword match score and saves them to `jobs/data/jobs.json`. Vercel then updates your Vercel link by itself. When you send "check jobs" to Claude, it adds an AI score, a reason, missing skills, a ready message and resume points in `jobs/data/scored.json`.
+What it does: every night around 9 PM India time (with a 10:30 PM backup), GitHub runs `jobs/fetch_jobs.py`. It collects fresh jobs from LinkedIn and Indeed (free, through JobSpy) and from Naukri, Instahyre and Hirist (through Apify), filters out the wrong ones, gives each a keyword match score and saves them to `jobs/data/jobs.json`. Vercel then updates your Vercel link by itself. When you send "check jobs" to Claude, it adds an AI score, a reason, missing skills, a ready message and resume points in `jobs/data/scored.json`.
 
 ## Files
 
@@ -13,7 +13,7 @@ What it does: every morning at 8 AM India time, GitHub runs `jobs/fetch_jobs.py`
 | `jobs/requirements.txt` | Python packages, pinned |
 | `jobs/data/jobs.json` | Today's and this week's jobs, written by the bot |
 | `jobs/data/scored.json` | AI review, uploaded by you each morning |
-| `.github/workflows/daily-jobs.yml` | Runs the script every day at 8 AM |
+| `.github/workflows/daily-jobs.yml` | Runs the script every night around 9 PM, with a backup at 10:30 PM |
 
 ## One-time setup (about 30 minutes)
 
@@ -25,7 +25,7 @@ What it does: every morning at 8 AM India time, GitHub runs `jobs/fetch_jobs.py`
 
 If a token is missing, Naukri is skipped and LinkedIn and Indeed still work. The bottom of each tab shows what happened on the last run.
 
-## Every morning (about 2 minutes)
+## Every night or morning (about 2 minutes)
 
 1. Open a new chat with Claude and send:
    `check jobs https://raw.githubusercontent.com/shreyashtiwari06/job-shortlist/main/jobs/data/jobs.json`
