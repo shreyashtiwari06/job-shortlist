@@ -1,5 +1,5 @@
 {
- "date": "2026-11-23",
+ "date": "2026-11-24",
  "note": "Keys are tab:job id.",
  "jobs": {
   "shreyash-networking:00981952a8e8": {
@@ -459,6 +459,623 @@
    "reason": "Asks for 5+ years.",
    "missing": [
     "Experience"
+   ]
+  },
+  "shreyash-networking:8a19192665f6": {
+   "score": 7.5,
+   "verdict": "Apply",
+   "reason": "Network automation at GoDaddy in Gurgaon: Python plus routing, ACLs and segmentation is a natural next step from your SD-WAN work.",
+   "missing": [
+    "Large-scale data-center networking",
+    "Ansible/NETCONF"
+   ],
+   "message": "Hi, I'm Shreyash, a Python engineer with nearly 3 years at Benison Technologies building SD-WAN device software on OpenWrt. I delivered our end-to-end IPsec feature on strongSwan (Employee of the Quarter, Q1 2026) and built BGP/BFD over IPsec with FRR, with sub-second failover. I'd love to be considered for the Network Automation Engineer role at GoDaddy. Could we have a quick chat, or could you refer me?",
+   "bullets": [
+    "Automated network configuration on SD-WAN devices with a runtime config service and auto-restore on failure",
+    "Implemented IPsec site-to-site VPN end to end on strongSwan with policy-based routing",
+    "Integrated BGP and BFD over IPsec using FRR with sub-second failover",
+    "Built mwan3 multi-WAN failover, VLAN networks and QoS traffic control"
+   ]
+  },
+  "shreyash-networking:ba642bc0a8e3": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "SD-WAN, BGP and MPLS match your domain, but this is a network operations role (Fortigate, Palo Alto, CCNA) rather than software development.",
+   "missing": [
+    "CCNA/vendor certifications",
+    "Firewall operations"
+   ]
+  },
+  "shreyash-networking:a84fb1e61286": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "2-4 years and Python automation is mentioned, but it's mostly network administration (Cisco, firewalls, DNS) in Hyderabad.",
+   "missing": [
+    "Cisco/CCNA operations",
+    "Hyderabad location"
+   ]
+  },
+  "shreyash-networking:e4117c276d1e": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Network product development on L2/L3 is your domain, but it needs hands-on C/C++ data-plane work and 4+ years.",
+   "missing": [
+    "C/C++",
+    "Packet forwarding",
+    "Experience"
+   ]
+  },
+  "shreyash-networking:38eedd0f4378": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Remote, 1-3 years, building coding tasks to train AI models; interesting but likely contract work at 10-12 LPA.",
+   "missing": [
+    "Pay and contract terms"
+   ]
+  },
+  "shreyash-networking:f12d8d70c35b": {
+   "score": 4.5,
+   "verdict": "Maybe",
+   "reason": "Mix of full-stack development and hospital network deployments; 3-7 years and Kubernetes.",
+   "missing": [
+    "Full stack",
+    "Kubernetes",
+    "HL7/FHIR"
+   ]
+  },
+  "shreyash-networking:34cba7bb6a3e": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Network security engineering on firewall products (Checkpoint, Palo Alto); an operations path rather than software.",
+   "missing": [
+    "Firewall vendor experience"
+   ]
+  },
+  "shreyash-networking:1c085e91a9cc": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "4G/5G core OAM in C++ with 4+ years.",
+   "missing": [
+    "C++",
+    "Experience"
+   ]
+  },
+  "shreyash-networking:596e34f7660b": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Linux kernel porting and device drivers in C, 4-6 years.",
+   "missing": [
+    "C",
+    "Kernel drivers"
+   ]
+  },
+  "shreyash-networking:7cdd87ad23b8": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Network security administration (ISE, NAC), an ops role.",
+   "missing": [
+    "Network administration"
+   ]
+  },
+  "shreyash-networking:4f8b2709f56a": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Vodafone NOC consultant role; SD-WAN is mentioned but it's operations.",
+   "missing": [
+    "NOC operations"
+   ]
+  },
+  "shreyash-networking:ecdc2d1b1df9": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Senior network consultant in operations (MPLS, NOC).",
+   "missing": [
+    "NOC operations",
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:64fc0b071813": {
+   "score": 3,
+   "verdict": "Skip",
+   "reason": "Senior Python + React role at a retailer; frontend-heavy.",
+   "missing": [
+    "React",
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:e4e3006ef825": {
+   "score": 3,
+   "verdict": "Skip",
+   "reason": "Security tooling operations (DLP, WAF, Proofpoint).",
+   "missing": [
+    "Security operations"
+   ]
+  },
+  "shreyash-networking:1315beb613ad": {
+   "score": 3,
+   "verdict": "Skip",
+   "reason": "Network security analyst (Zscaler, IDS); an analyst role.",
+   "missing": [
+    "Security operations"
+   ]
+  },
+  "shreyash-networking:d7296fa717ae": {
+   "score": 2.5,
+   "verdict": "Skip",
+   "reason": "Java/Node.js payments backend, not your stack.",
+   "missing": [
+    "Java",
+    "Node.js"
+   ]
+  },
+  "shreyash-networking:384586836155": {
+   "score": 2,
+   "verdict": "Skip",
+   "reason": "Frontend React/Next.js role.",
+   "missing": [
+    "React"
+   ]
+  },
+  "shreyash-backend:044b42dc16c8": {
+   "score": 8,
+   "verdict": "Apply",
+   "reason": "Nutanix asks for 2-3 years in Pune for systems and distributed-systems work; your HA, failover and deadlock-debugging experience fits well.",
+   "missing": [
+    "Distributed systems at cloud scale",
+    "Go or Java"
+   ],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the Member of Technical Staff 2 - Backend role at Nutanix and would value a quick chat or a referral.",
+   "bullets": [
+    "Developed HA in Python: health monitoring, status sync and automated primary/DR failover across data centers",
+    "Fixed a restart deadlock between two services, cutting recovery from over a minute to a few seconds",
+    "Built HAL with a modular handler architecture plus threading and caching",
+    "Event-driven asyncio service on Kafka with TLS/mTLS and rollback"
+   ]
+  },
+  "shreyash-backend:31cc4221676c": {
+   "score": 8,
+   "verdict": "Apply",
+   "reason": "Python backend at Atlys (Delhi/Gurgaon/Noida) with Kafka, Redis and Celery, a strong match for your event-driven services.",
+   "missing": [
+    "Django/FastAPI in production",
+    "Celery"
+   ],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the Backend Engineer role at Atlys and would value a quick chat or a referral.",
+   "bullets": [
+    "Designed an event-driven asyncio service on Kafka with TLS/mTLS, verified updates and automatic rollback",
+    "Built a configuration-management service applying centrally pushed config at runtime with backup and auto-restore",
+    "Fixed a restart deadlock between services, cutting recovery from over a minute to a few seconds",
+    "Delivered 100+ features and fixed 275+ bugs across web UI, backend APIs and device services"
+   ]
+  },
+  "shreyash-backend:1e723d2031c0": {
+   "score": 7.5,
+   "verdict": "Apply",
+   "reason": "Remote Python/Django backend for 2-5 years at a growing e-commerce SaaS.",
+   "missing": [
+    "Django",
+    "AWS"
+   ],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the Software Developer - Backend role at QuickSync and would value a quick chat or a referral.",
+   "bullets": [
+    "Designed an event-driven asyncio service on Kafka with TLS/mTLS, verified updates and automatic rollback",
+    "Built a configuration-management service applying centrally pushed config at runtime with backup and auto-restore",
+    "Fixed a restart deadlock between services, cutting recovery from over a minute to a few seconds"
+   ]
+  },
+  "shreyash-backend:bf2c02fde521": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "SDE 1/2 backend in Python at Plazza, Bangalore; right level for you.",
+   "missing": [
+    "Django/FastAPI in production"
+   ],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the SDE 1 / 2 (Backend) role at Plazza and would value a quick chat or a referral.",
+   "bullets": [
+    "Designed an event-driven asyncio service on Kafka with TLS/mTLS, verified updates and automatic rollback",
+    "Built a configuration-management service applying centrally pushed config at runtime with backup and auto-restore",
+    "Fixed a restart deadlock between services, cutting recovery from over a minute to a few seconds"
+   ]
+  },
+  "shreyash-backend:6421ed78a38b": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Django REST Framework and PostgreSQL focused; Django is the main gap.",
+   "missing": [
+    "Django/DRF",
+    "PostgreSQL depth"
+   ]
+  },
+  "shreyash-backend:760a10811d0f": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Python backend at an ad-tech startup; no level given.",
+   "missing": [
+    "AWS",
+    "Django/FastAPI"
+   ]
+  },
+  "shreyash-backend:6544907c0c80": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Python backend with agentic AI frameworks (CrewAI, AutoGen); good backend overlap, AI tooling is new for you.",
+   "missing": [
+    "LLM/agent frameworks"
+   ]
+  },
+  "shreyash-backend:9ea92cef575d": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Python developer at an infra company, Bangalore; few details.",
+   "missing": [
+    "Django/FastAPI"
+   ]
+  },
+  "shreyash-backend:eb212cd4cfc3": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "2-4 years and Python migration work, but you'd need to read and maintain Ruby on Rails.",
+   "missing": [
+    "Ruby on Rails"
+   ]
+  },
+  "shreyash-backend:02878aa90de6": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Bloomberg data platform in Pune; senior title and a high bar.",
+   "missing": [
+    "Seniority",
+    "Financial data systems"
+   ]
+  },
+  "shreyash-backend:fbe1782811eb": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Senior backend for 3-6 years with Node.js/Go/Python and Elasticsearch.",
+   "missing": [
+    "Node.js or Go",
+    "Elasticsearch"
+   ]
+  },
+  "shreyash-backend:063fa03d8e2f": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "60-100 LPA but restricted to CS graduates with exceptional experience, IIT preferred; very high bar.",
+   "missing": [
+    "High bar"
+   ]
+  },
+  "shreyash-backend:c58c033a685c": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Senior Go-first backend, 4-7 years.",
+   "missing": [
+    "Golang",
+    "Experience"
+   ]
+  },
+  "shreyash-backend:f1408726d745": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Go/Java/Python backend for 4-8 years.",
+   "missing": [
+    "Golang",
+    "Experience"
+   ]
+  },
+  "shreyash-backend:3105ba71513d": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Python + cloud + AI + React; full stack.",
+   "missing": [
+    "React",
+    "Cloud"
+   ]
+  },
+  "shreyash-backend:5fc836ce1f1b": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Technical lead role in C and Python.",
+   "missing": [
+    "Lead experience",
+    "C"
+   ]
+  },
+  "shreyash-backend:744a8c2714b8": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "C/C++/Python with Azure for 4-9 years.",
+   "missing": [
+    "Azure",
+    "C++"
+   ]
+  },
+  "shreyash-backend:54e312c27c68": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Asks for 4+ years.",
+   "missing": [
+    "Experience"
+   ]
+  },
+  "shreyash-backend:b6487193466d": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Lead AI backend role for 4-7 years.",
+   "missing": [
+    "Experience",
+    "GenAI"
+   ]
+  },
+  "shreyash-backend:8a3285a0b644": {
+   "score": 3,
+   "verdict": "Skip",
+   "reason": "Golang developer for 4-12 years.",
+   "missing": [
+    "Golang"
+   ]
+  },
+  "shreyash-backend:6b4bd07a4cac": {
+   "score": 2.5,
+   "verdict": "Skip",
+   "reason": "Reporting and spreadsheet work, below your level.",
+   "missing": []
+  },
+  "shreyash-backend:12471536081a": {
+   "score": 2,
+   "verdict": "Skip",
+   "reason": "Asks for 8-13 years.",
+   "missing": [
+    "Experience"
+   ]
+  },
+  "akanksha-java:98ca8068166b": {
+   "score": 8,
+   "verdict": "Apply",
+   "reason": "Java backend at Walmart Global Tech with Spring Boot microservices, exactly her stack.",
+   "missing": [
+    "Large-scale distributed systems"
+   ],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Java Backend Engineer role at Walmart Global Tech. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%",
+    "Scheduled Spring Batch jobs off-peak, lowering system load by 30%"
+   ]
+  },
+  "akanksha-java:85bc2c06fdd7": {
+   "score": 8,
+   "verdict": "Apply",
+   "reason": "Java/Spring Boot microservices backend at Disney India, Bangalore.",
+   "missing": [
+    "Cloud at scale"
+   ],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Backend Developer - Java role at Disney India. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%",
+    "Scheduled Spring Batch jobs off-peak, lowering system load by 30%"
+   ]
+  },
+  "akanksha-java:60fe8e4a8a79": {
+   "score": 8,
+   "verdict": "Apply",
+   "reason": "Remote Java/Spring Boot role with PostgreSQL and microservices, a direct match.",
+   "missing": [
+    "MongoDB",
+    "AWS"
+   ],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Software Engineer (Java / Spring Boot) role at Velsera. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%",
+    "Scheduled Spring Batch jobs off-peak, lowering system load by 30%"
+   ]
+  },
+  "akanksha-java:645f89c25b43": {
+   "score": 7.5,
+   "verdict": "Apply",
+   "reason": "Pine Labs in Noida is a payments company, a strong fit for her AEPS/BBPS fintech work; titled senior, so lead with the payments story.",
+   "missing": [
+    "Seniority"
+   ],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Senior Software Engineer - Java Backend role at Pine Labs. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%",
+    "Scheduled Spring Batch jobs off-peak, lowering system load by 30%"
+   ]
+  },
+  "akanksha-java:a46e7b55357c": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Deloitte Java Spring Boot consultant in Delhi; Kubernetes and GitOps are the gaps.",
+   "missing": [
+    "Kubernetes",
+    "GitOps",
+    "AWS"
+   ],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Consultant - Java Spring Boot Backend role at Deloitte. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:9623cac2821c": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Remote Java role with Spring Boot, Spring Data JPA and MVC, all her daily tools.",
+   "missing": [],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Software Engineer role at Divisions Maintenance Group. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:a3484a6c6525": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Java/Spring Boot backend in Bangalore or Gurgaon.",
+   "missing": [],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Backend Engineer role at DMG. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:cee02a14661f": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Amazon backend role; Java fits but the bar is high and Go is listed.",
+   "missing": [
+    "Go",
+    "Distributed systems"
+   ]
+  },
+  "akanksha-java:abe4cd6128d5": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Java Spring Boot microservices at Zensar, Bangalore.",
+   "missing": []
+  },
+  "akanksha-java:340cbd9f9c7e": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Java Spring Boot backend at Ascendion, Gurgaon among its locations.",
+   "missing": []
+  },
+  "akanksha-java:ba27c370e571": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "JPMorgan Java Spring Boot role with AWS; banking fits, AWS is a gap.",
+   "missing": [
+    "AWS"
+   ]
+  },
+  "akanksha-java:905a331334ab": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "3-5 years Java, with Docker, Kubernetes and Jenkins emphasised.",
+   "missing": [
+    "Kubernetes",
+    "CI/CD"
+   ]
+  },
+  "akanksha-java:dbc9a5f0e89b": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "3-5 years Java in Noida, but listed as full stack with TypeScript.",
+   "missing": [
+    "TypeScript",
+    "Frontend"
+   ]
+  },
+  "akanksha-java:57ecbb4dd024": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Java/Spring Boot with Hibernate for 1-10 years; wants Oracle stored procedures and Bamboo.",
+   "missing": [
+    "Stored procedures",
+    "Bamboo"
+   ]
+  },
+  "akanksha-java:e914f54d4557": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Disney ad-serving platform; Java microservices but performance-heavy and titled senior.",
+   "missing": [
+    "High-performance systems"
+   ]
+  },
+  "akanksha-java:a2030abcd5e3": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "KYC and verification platform in Gurgaon, close to her fintech work, but 4-8 years.",
+   "missing": [
+    "Experience"
+   ]
+  },
+  "akanksha-java:3dcccc67ef2c": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Payments backend in Java, a great domain match, but 4-10 years.",
+   "missing": [
+    "Experience"
+   ]
+  },
+  "akanksha-java:aeff267aa855": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Fintech Java with Kafka and multithreading, 4-8 years.",
+   "missing": [
+    "Experience",
+    "Multithreading depth"
+   ]
+  },
+  "akanksha-java:6dea62e9f938": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Java 8 + Spring Boot for 4-6 years.",
+   "missing": [
+    "Experience"
+   ]
+  },
+  "akanksha-java:82e6dd5cac5b": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Java with Angular/React; part frontend.",
+   "missing": [
+    "Angular/React"
+   ]
+  },
+  "akanksha-java:67000c87b9fc": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "4-15 years at EdgeVerve; likely senior.",
+   "missing": [
+    "Experience"
+   ]
+  },
+  "akanksha-java:2dc37ef359d6": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "4-8 years with Kotlin.",
+   "missing": [
+    "Kotlin",
+    "Experience"
+   ]
+  },
+  "akanksha-java:c58c033a685c": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Go-first senior backend.",
+   "missing": [
+    "Golang"
+   ]
+  },
+  "akanksha-java:9fa345082c7f": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "4-8 years and immediate to 15-day joiners only.",
+   "missing": [
+    "Experience",
+    "Notice period"
+   ]
+  },
+  "akanksha-java:2114d435670e": {
+   "score": 3,
+   "verdict": "Skip",
+   "reason": "4+ years, immediate joiners only.",
+   "missing": [
+    "Experience",
+    "Notice period"
    ]
   }
  }
