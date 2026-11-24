@@ -2,7 +2,10 @@ name: Daily jobs
 
 on:
   schedule:
-    - cron: "30 2 * * *"   # 8:00 AM India time, every day
+    # Night run so the whole day's postings are caught while still fresh.
+    # GitHub can delay or drop scheduled runs, so there is one backup.
+    - cron: "17 15 * * *"   # about 8:47 PM India time
+    - cron: "2 17 * * *"    # about 10:32 PM India time (backup)
   workflow_dispatch:        # lets you run it any time from the Actions tab
 
 permissions:
@@ -19,30 +22,58 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Skip if a search already ran in the last 3 hours
+        id: guard
+        run: |
+          LAST=$(python3 -c "import json;print(json.load(open('jobs/data/jobs.json')).get('updated_at',''))")
+          RECENT=$(python3 -c "
+          import sys
+          from datetime import datetime, timezone, timedelta
+          last = '$LAST'
+          try:
+              t = datetime.fromisoformat(last)
+              print('yes' if datetime.now(timezone.utc) - t < timedelta(hours=3) else 'no')
+          except ValueError:
+              print('no')
+          ")
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$RECENT" = "yes" ]; then
+            echo "A search ran at $LAST, less than 3 hours ago; skipping this backup run."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v5
+        if: steps.guard.outputs.skip != 'true'
         with:
           python-version: "3.11"
           cache: pip
           cache-dependency-path: jobs/requirements.txt
 
       - name: Install
+        if: steps.guard.outputs.skip != 'true'
         run: pip install -r jobs/requirements.txt
 
       - name: Fetch and score jobs
+        if: steps.guard.outputs.skip != 'true'
         env:
           APIFY_TOKEN_SHREYASH: ${{ secrets.APIFY_TOKEN_SHREYASH }}
           APIFY_TOKEN_AKANKSHA: ${{ secrets.APIFY_TOKEN_AKANKSHA }}
         run: python jobs/fetch_jobs.py
 
       - name: Save to repo
+        if: steps.guard.outputs.skip != 'true'
         run: |
           git config user.name "jobs-bot"
           git config user.email "jobs-bot@users.noreply.github.com"
+          cp jobs/data/jobs.json /tmp/jobs.json
+          git fetch origin main
+          git checkout -B main origin/main
+          cp /tmp/jobs.json jobs/data/jobs.json
           git add jobs/data/jobs.json
           if git diff --cached --quiet; then
             echo "No changes"
           else
             git commit -m "Jobs for $(TZ=Asia/Kolkata date +%F)"
-            git pull --rebase
-            git push
+            git push origin main
           fi
