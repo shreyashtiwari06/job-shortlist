@@ -26,6 +26,19 @@
         "actor": "cprussin/hirist-iimjobs-jobs",
         "price_per_job_usd": 0.002
       }
+    },
+    "linkedin_recruiters": {
+      "enabled": true,
+      "actor": "coregent/linkedin-jobs-scraper",
+      "price_per_job_usd": 0.001,
+      "max_per_tab": 15
+    },
+    "hunter": {
+      "enabled": true,
+      "monthly_budget_per_person": 20,
+      "min_keyword_score": 65,
+      "min_confidence": 70,
+      "max_per_run_per_person": 2
     }
   },
   "tabs": [
@@ -153,7 +166,10 @@
             "ipsec vpn"
           ]
         }
-      }
+      },
+      "full_name": "Shreyash Tiwari",
+      "hunter_key_env": "HUNTER_API_KEY_SHREYASH",
+      "cv_link": ""
     },
     {
       "id": "shreyash-backend",
@@ -272,7 +288,10 @@
             "fastapi"
           ]
         }
-      }
+      },
+      "full_name": "Shreyash Tiwari",
+      "hunter_key_env": "HUNTER_API_KEY_SHREYASH",
+      "cv_link": ""
     },
     {
       "id": "akanksha-java",
@@ -387,7 +406,10 @@
             "java microservices"
           ]
         }
-      }
+      },
+      "full_name": "Akanksha Varshney",
+      "hunter_key_env": "HUNTER_API_KEY_AKANKSHA",
+      "cv_link": ""
     }
   ]
 }
