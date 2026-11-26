@@ -343,6 +343,105 @@ def fetch_extra(tab):
     return rows, errors
 
 
+# LinkedIn jobs that name a recruiter (Apify, public pages, no login). Only about
+# 1 in 5 LinkedIn postings shows a recruiter, so this is a small, cheap extra run.
+
+LI_PLACES = {
+    "Noida": "Noida, Uttar Pradesh, India", "Gurugram": "Gurugram, Haryana, India",
+    "Delhi": "Delhi, India", "Bengaluru": "Bengaluru, Karnataka, India", "Pune": "Pune, Maharashtra, India",
+}
+
+
+def fetch_linkedin_recruiters(tab):
+    cfg = SETTINGS.get("linkedin_recruiters") or {}
+    if not cfg.get("enabled"):
+        return [], []
+    token = os.environ.get(tab["apify_token_env"], "").strip()
+    if not token:
+        return [], []
+    from apify_client import ApifyClient
+
+    client = ApifyClient(token)
+    n = cfg.get("max_per_tab", 15)
+    run_input = {
+        "searchKeywords": tab["naukri_terms"],
+        "locations": [LI_PLACES.get(c, f"{c}, India") for c in tab["cities"]],
+        "maxResults": n, "postedWithin": "past24Hours", "sortBy": "recent",
+        "excludeJobTitleKeywords": [w.strip() for w in tab["avoid_in_title"]],
+        "includeRecruiterDetails": True, "extractPublicEmails": True,
+        "includeCompanyDetails": False, "removeDuplicates": True,
+        "skipKnownJobsForDays": 30, "historyName": f"job-shortlist-{tab['id']}",
+    }
+    try:
+        cap = Decimal(str(round(n * cfg.get("price_per_job_usd", 0.001) * 2 + 0.01, 3)))
+        run = client.actor(cfg["actor"]).call(run_input=run_input, max_items=n, max_total_charge_usd=cap)
+        if run is None:
+            return [], ["linkedin recruiters: run did not finish"]
+        ds_id = run.get("defaultDatasetId") if isinstance(run, dict) else getattr(run, "default_dataset_id", None)
+        items = list(client.dataset(ds_id).iterate_items())
+    except Exception as exc:
+        return [], [f"linkedin recruiters: {exc}"]
+
+    rows = []
+    for it in items:
+        rec = it.get("recruiter") or {}
+        sal = it.get("salary") or {}
+        rows.append({
+            "source": "LinkedIn", "title": clean(it.get("title")), "company": clean(it.get("companyName")),
+            "location": clean(it.get("location")), "url": clean(it.get("jobUrl")),
+            "apply_url": clean(it.get("applyUrl")) or clean(it.get("jobUrl")),
+            "posted": clean(it.get("postedAt")), "description": clean(it.get("descriptionText")),
+            "is_remote": clean(it.get("workplaceType")).lower() == "remote",
+            "experience_text": clean(it.get("seniorityLevel")), "salary": clean(sal.get("text")),
+            "skills": "", "emails": clean(it.get("emails")),
+            "recruiter_name": clean(rec.get("name")), "recruiter_title": clean(rec.get("title")),
+            "recruiter_url": clean(rec.get("linkedinUrl")),
+        })
+    log(f"  linkedin (recruiter details): {len(items)}, with a recruiter: {sum(1 for r in rows if r['recruiter_name'])}")
+    return rows, []
+
+
+def hunter_find(api_key, company, full_name):
+    """Look up a work email with Hunter's Email Finder. Returns (email, score) or (None, None)."""
+    import urllib.parse, urllib.request
+    q = urllib.parse.urlencode({"company": company, "full_name": full_name, "api_key": api_key})
+    with urllib.request.urlopen(f"https://api.hunter.io/v2/email-finder?{q}", timeout=20) as r:
+        data = json.loads(r.read().decode()).get("data") or {}
+    return data.get("email"), data.get("score")
+
+
+def find_recruiter_emails(jobs, usage):
+    """Spend a small monthly Hunter budget on the best jobs that name a recruiter."""
+    cfg = SETTINGS.get("hunter") or {}
+    if not cfg.get("enabled"):
+        return []
+    month = TODAY[:7]
+    tabs = {t["id"]: t for t in CONFIG["tabs"]}
+    per_run, notes = {}, []
+    for job in sorted(jobs, key=lambda j: -j["keyword_score"]):
+        t = tabs[job["tab"]]
+        person = t["person"].lower()
+        key = os.environ.get(t.get("hunter_key_env", ""), "").strip()
+        if not key or not job.get("recruiter_name") or job.get("recruiter_email"):
+            continue
+        if job["keyword_score"] < cfg.get("min_keyword_score", 65):
+            continue
+        used = usage.setdefault(month, {}).get(person, 0)
+        if used >= cfg.get("monthly_budget_per_person", 20) or per_run.get(person, 0) >= cfg.get("max_per_run_per_person", 2):
+            continue
+        usage[month][person] = used + 1
+        per_run[person] = per_run.get(person, 0) + 1
+        try:
+            email, score = hunter_find(key, job["company"], job["recruiter_name"])
+        except Exception as exc:
+            notes.append(f"hunter ({job['company']}): {exc}")
+            continue
+        if email and (score or 0) >= cfg.get("min_confidence", 70):
+            job["recruiter_email"], job["recruiter_email_score"] = email, score
+            log(f"  email found for {job['recruiter_name']} at {job['company']} ({score}%)")
+    return notes
+
+
 # ---------------------------------------------------------------- scoring
 
 def score_job(job, tab):
@@ -441,6 +540,9 @@ def main():
             x_rows, x_err = fetch_extra(tab)
             rows += x_rows
             errors += x_err
+            r_rows, r_err = fetch_linkedin_recruiters(tab)
+            rows = r_rows + rows  # recruiter version first, so it wins duplicate checks
+            errors += r_err
 
         candidates, dropped = [], {}
         for job in rows:
@@ -473,10 +575,18 @@ def main():
         })
         log(f"{tab['id']}: fetched {len(rows)}, new {len(picked)}, errors {len(errors)}")
 
+    usage = old.get("hunter_usage") or {}
+    if not use_sample:
+        hunter_notes = find_recruiter_emails(new_jobs, usage)
+        if hunter_notes and run_log:
+            run_log[-1]["errors"] += [n[:220] for n in hunter_notes[:4]]
+
     out = {
+        "hunter_usage": usage,
         "updated_at": NOW.isoformat(timespec="minutes"),
         "date": TODAY,
-        "tabs": [{"id": t["id"], "label": t["label"], "person": t["person"]} for t in CONFIG["tabs"]],
+        "tabs": [{"id": t["id"], "label": t["label"], "person": t["person"],
+                  "full_name": t.get("full_name", t["person"]), "cv_link": t.get("cv_link", "")} for t in CONFIG["tabs"]],
         "run_log": run_log,
         "jobs": new_jobs + kept,
     }
