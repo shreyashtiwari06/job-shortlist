@@ -81,6 +81,9 @@ button,select{font:inherit;color:inherit}
 .verdict.v-skip{background:var(--weak-bg);color:var(--weak)}
 .kw{margin:8px 0 0;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:5px;align-items:center}
 .kw i{font-style:normal;border:1px dashed var(--line);border-radius:6px;padding:0 7px;color:var(--text)}
+.rec{margin:10px 0 0;font-size:13.5px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.rec b{font-weight:600}.rec a{color:var(--acc)}.rec .rt{color:var(--muted)}
+.rec .em{font-size:12.5px;padding:1px 8px;border-radius:99px;background:var(--strong-bg);color:var(--strong)}
 .actions{grid-column:2;display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
 .btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none;font-size:14px}
 .btn:hover{border-color:var(--muted)}
@@ -303,6 +306,32 @@ footer ul{padding-left:18px;margin:6px 0 0}
 
   var STATUS_OPTS = [["","Not applied"],["saved","Saved for later"],["applied","Applied"],["interview","Interview"],["offer","Offer"],["rejected","Rejected"],["hidden","Not interested"]];
 
+  function recEmail(j){
+    if(j.recruiter_email) return j.recruiter_email;
+    var e = String(j.emails||"").split(/[,\s]+/).filter(function(x){ return /@/.test(x); });
+    return e[0] || "";
+  }
+
+  function recHTML(j){
+    var email = recEmail(j);
+    if(!j.recruiter_name && !email) return "";
+    var who = j.recruiter_name
+      ? '<b>'+(j.recruiter_url ? '<a href="'+esc(j.recruiter_url)+'" target="_blank" rel="noopener">'+esc(j.recruiter_name)+'</a>' : esc(j.recruiter_name))+'</b>' +
+        (j.recruiter_title ? '<span class="rt">'+esc(j.recruiter_title.length>70 ? j.recruiter_title.slice(0,70)+"…" : j.recruiter_title)+'</span>' : "")
+      : '<span class="rt">Contact in the posting</span>';
+    var em = email ? '<span class="em">'+esc(email)+(j.recruiter_email_score ? " ("+esc(j.recruiter_email_score)+"% sure)" : "")+'</span>' : "";
+    return '<p class="rec">Recruiter '+who+em+'</p>';
+  }
+
+  function tabInfo(id){ return (state.data.tabs.filter(function(t){ return t.id===id; })[0]) || {}; }
+
+  function outreachText(j, ai){
+    var t = tabInfo(j.tab), name = t.full_name || t.person || "";
+    var body = ai.message || ("Hi, I came across the "+j.title+" role at "+j.company+" and would love to be considered. I'd be glad to share more about my experience.");
+    if(j.recruiter_name) body = body.replace(/^Hi,/, "Hi " + j.recruiter_name.split(" ")[0] + ",");
+    return { subject: "Application: " + j.title + " - " + name, body: body };
+  }
+
   function jobHTML(j){
     var f = fit(j), ai = aiFor(j) || {};
     var st = (statuses[j.id] && statuses[j.id].value) || "";
@@ -330,9 +359,11 @@ footer ul{padding-left:18px;margin:6px 0 0}
     return '<li class="job '+f.cls+'" data-id="'+esc(j.id)+'">' +
       '<div class="score '+f.cls+'"><b>'+esc(f.value)+'</b><small>'+f.label+'</small></div>' +
       '<div><h2>'+esc(j.title)+fresh+'</h2><p class="co">'+esc(j.company||"Company not shown")+'</p>' +
-      '<div class="tags">'+tags.join("")+'</div>'+why+missing+'</div>' +
+      '<div class="tags">'+tags.join("")+'</div>'+why+missing+recHTML(j)+'</div>' +
       '<div class="actions">' +
         '<button class="btn primary" data-apply>'+(ai.message?"Copy message and apply":"Open and apply")+'</button>' +
+        (j.recruiter_url ? '<button class="btn" data-li>Message recruiter on LinkedIn</button>' : '') +
+        (recEmail(j) ? '<button class="btn" data-mail>Email recruiter</button>' : '') +
         '<select class="status" aria-label="Status">'+STATUS_OPTS.map(function(o){ return '<option value="'+o[0]+'"'+(o[0]===st?" selected":"")+'>'+o[1]+'</option>'; }).join("")+'</select>' +
       '</div>' + kit + '</li>';
   }
@@ -449,6 +480,20 @@ footer ul{padding-left:18px;margin:6px 0 0}
       if(ai.message){ copy(ai.message).then(function(){ toast("Message copied. Paste it in the application."); go(); }); }
       else go();
       if(!statuses[id]){ setStatus(job, "saved"); li.querySelector("select").value="saved"; }
+    });
+    var liBtn = li.querySelector("[data-li]");
+    if(liBtn) liBtn.addEventListener("click", function(){
+      var m = outreachText(job, ai);
+      copy(m.body).then(function(){ toast("Message copied. Paste it in a LinkedIn message or connection note."); window.open(job.recruiter_url, "_blank", "noopener"); });
+    });
+    var mailBtn = li.querySelector("[data-mail]");
+    if(mailBtn) mailBtn.addEventListener("click", function(){
+      var m = outreachText(job, ai), t = tabInfo(job.tab);
+      var body = m.body + "\n\n" + (t.cv_link ? "My resume: " + t.cv_link : "I've attached my resume for your reference.") + "\n\nThanks,\n" + (t.full_name || t.person || "");
+      var url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(recEmail(job)) +
+        "&su=" + encodeURIComponent(m.subject) + "&body=" + encodeURIComponent(body);
+      window.open(url, "_blank", "noopener");
+      toast(t.cv_link ? "Gmail opened with your email ready." : "Gmail opened. Attach your resume PDF, then send.");
     });
     li.querySelector("select").addEventListener("change", function(e){
       setStatus(job, e.target.value);
