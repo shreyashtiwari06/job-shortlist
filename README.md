@@ -1,5 +1,7 @@
 # Job shortlist: setup and daily use
 
+> Continuing with Claude in a new account? Start with `CLAUDE_HANDOVER.md`: it explains the whole tool and how the daily AI review is done.
+
 What it does: every night around 9 PM India time (with a 10:30 PM backup), GitHub runs `jobs/fetch_jobs.py`. It collects fresh jobs from LinkedIn and Indeed (free, through JobSpy) and from Naukri, Instahyre and Hirist (through Apify), filters out the wrong ones, gives each a keyword match score and saves them to `jobs/data/jobs.json`. Vercel then updates your Vercel link by itself. When you send "check jobs" to Claude, it adds an AI score, a reason, missing skills, a ready message and resume points in `jobs/data/scored.json`.
 
 ## Files
