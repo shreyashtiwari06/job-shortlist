@@ -32,7 +32,7 @@ Both have about **3 years** of experience. Search range is 2–4 years. Full pro
 | `jobs/config.json` | Per-tab search terms, cities, experience, keywords, title filters, Instahyre/Hirist settings and caps |
 | `jobs/profiles.md` | Profiles used for the AI review |
 | `jobs/fetch_jobs.py` | Daily script |
-| `jobs/requirements.txt` | `python-jobspy==1.4.1`, `apify-client==3.5.0` |
+| `jobs/requirements.txt` | `python-jobspy==1.4.1`, `apify-client==3.5.0` (Hunter is called with Python's built-in urllib) |
 | `jobs/data/jobs.json` | Jobs written by the bot (do not edit by hand) |
 | `jobs/data/scored.json` | AI reviews (Claude writes this) |
 | `.github/workflows/daily-jobs.yml` | Night schedule, skip-if-recent guard, save step |
@@ -44,6 +44,14 @@ Both have about **3 years** of experience. Search range is 2–4 years. Full pro
 - **Naukri, Instahyre, Hirist:** Apify actors `chronometrica/naukri-jobs-scraper`, `cprussin/instahyre-jobs`, `cprussin/hirist-iimjobs-jobs`. Public listings only, no logins. Instahyre and Hirist run in monitor mode (only new listings are returned and charged). Instahyre gives no descriptions (scored on title + skills).
 - **Apify tokens** are GitHub secrets `APIFY_TOKEN_SHREYASH` and `APIFY_TOKEN_AKANKSHA` (one free account each, $5/month credit). Expected cost: about $4/month for Shreyash, about $2.70 for Akanksha.
 - Max **25 new jobs per tab per run** (`max_new_per_tab_per_day`). Jobs are kept 7 days.
+
+## 4b. Recruiter contacts (LinkedIn) and email finding
+
+- An extra Apify run per tab (`coregent/linkedin-jobs-scraper`, about $0.001 per job, max 15 per tab per night, public pages only, no login) returns LinkedIn jobs **with the recruiter's name, title and LinkedIn profile** when LinkedIn shows one (roughly 1 in 5 postings), plus any email printed in the description. It remembers delivered jobs for 30 days, so repeats aren't charged. These rows are added first so they win duplicate checks against JobSpy's LinkedIn rows.
+- **Hunter.io email finder** (optional): GitHub secrets `HUNTER_API_KEY_SHREYASH` / `HUNTER_API_KEY_AKANKSHA` (free account each). For new jobs with a named recruiter and keyword score ≥ 65, the script asks Hunter for the work email (company + full name), keeps it only at ≥ 70% confidence, max 2 lookups per person per run and 20 per month (`settings.hunter` in `config.json`; usage tracked in `jobs.json` → `hunter_usage`). Without the secrets this step is skipped.
+- Job fields: `recruiter_name`, `recruiter_title`, `recruiter_url`, `recruiter_email`, `recruiter_email_score`, `emails`.
+- On the site, cards show the recruiter, a **"Message recruiter on LinkedIn"** button (copies the message with the recruiter's first name, opens their profile) and an **"Email recruiter"** button (opens Gmail compose with to, subject "Application: {title} - {full name}" and the message; the user attaches the CV, or set `cv_link` per tab in `config.json` to include a resume link instead).
+- Suggested habit: 5–10 recruiter emails a day at most, from personal Gmail.
 
 ## 5. Schedule (and the known delay)
 
@@ -106,7 +114,7 @@ Only use facts from `profiles.md`. Never exaggerate numbers or invent skills.
 ## 8. Ideas discussed but not built yet
 
 1. **Apply queue** on the site: "Start applying" walks through Apply jobs by score; copies the message, opens the job, "Done, next" marks Applied. Used with an autofill extension (Simplify or Lazee), about 1 minute per job.
-2. **Recruiter emails:** recruiter names (LinkedIn "hiring team" via an Apify LinkedIn actor; Hirist gives `recruiterName`) → email finder (Hunter.io or Apollo free tiers, show confidence) → Claude writes a short email → "Create Gmail draft" with CV attached from each person's own Gmail. Keep it to 5–10 emails a day. Postings themselves almost never include emails.
+2. **Recruiter emails: built (see 4b).** Possible next steps: real Gmail drafts with the CV attached (needs Gmail API sign-in per person), Hirist recruiter names (`recruiterName`) into the email lookup.
 3. **Claude API auto-review** in the GitHub workflow (Claude Haiku, about $1–2/month), API key as a GitHub secret.
 4. **Exact 9 PM runs** with cron-job.org.
 5. Raise the per-tab cap from 25 to 35; tighten Hirist so 4+ year jobs are filtered out.
