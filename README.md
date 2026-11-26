@@ -37,6 +37,14 @@ If a token is missing, Naukri is skipped and LinkedIn and Indeed still work. The
 
 On days you skip this, the page still works with keyword scores.
 
+## Recruiter contacts
+
+About 1 in 5 LinkedIn jobs names the recruiter. For those, the card shows their name and two buttons: **Message recruiter on LinkedIn** (copies your message and opens their profile) and **Email recruiter** (opens Gmail with the email written; attach your resume and send). Emails come from the posting itself or from Hunter.io.
+
+To turn on Hunter email finding, each of you creates a free account at hunter.io, copies the API key (Dashboard, API), and adds it as a GitHub secret: `HUNTER_API_KEY_SHREYASH` and `HUNTER_API_KEY_AKANKSHA`. The tool uses at most 20 lookups per person per month, only for good matches with a named recruiter, and keeps an email only when Hunter is at least 70% sure. Optional: put a link to your resume (for example Google Drive, view-only) in `cv_link` for your tabs in `jobs/config.json`, and the email will include it.
+
+Send at most 5–10 recruiter emails a day, from your personal Gmail.
+
 ## Applying
 
 Tap "Copy message and apply": the message is copied and the job opens. Paste it where the form asks, let Lazee or Simplify fill the rest, and submit yourself. Then set the status to Applied, and the job stays under "My applications" even after it drops off the weekly list. Statuses are saved on the device you use, so each of you keeps your own.
