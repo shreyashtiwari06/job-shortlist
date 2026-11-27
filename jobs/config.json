@@ -35,10 +35,13 @@
     },
     "hunter": {
       "enabled": true,
+      "provider": "apify",
+      "apify_actor": "coregent/work-email-finder",
       "monthly_budget_per_person": 20,
       "min_keyword_score": 65,
-      "min_confidence": 70,
-      "max_per_run_per_person": 2
+      "min_confidence": 80,
+      "max_per_run_per_person": 2,
+      "max_charge_usd_per_run": 0.2
     }
   },
   "tabs": [
@@ -168,7 +171,6 @@
         }
       },
       "full_name": "Shreyash Tiwari",
-      "hunter_key_env": "HUNTER_API_KEY_SHREYASH",
       "cv_link": ""
     },
     {
@@ -290,7 +292,6 @@
         }
       },
       "full_name": "Shreyash Tiwari",
-      "hunter_key_env": "HUNTER_API_KEY_SHREYASH",
       "cv_link": ""
     },
     {
@@ -408,7 +409,6 @@
         }
       },
       "full_name": "Akanksha Varshney",
-      "hunter_key_env": "HUNTER_API_KEY_AKANKSHA",
       "cv_link": ""
     }
   ]
