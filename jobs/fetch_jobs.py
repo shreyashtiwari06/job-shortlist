@@ -401,44 +401,81 @@ def fetch_linkedin_recruiters(tab):
     return rows, []
 
 
-def hunter_find(api_key, company, full_name):
-    """Look up a work email with Hunter's Email Finder. Returns (email, score) or (None, None)."""
-    import urllib.parse, urllib.request
-    q = urllib.parse.urlencode({"company": company, "full_name": full_name, "api_key": api_key})
-    with urllib.request.urlopen(f"https://api.hunter.io/v2/email-finder?{q}", timeout=20) as r:
-        data = json.loads(r.read().decode()).get("data") or {}
-    return data.get("email"), data.get("score")
+def apify_find_emails(token, people):
+    """Work Email Finder on Apify (uses Hunter's index; no Hunter account needed).
+    people: list of dicts with externalId plus linkedinUrl or fullName+company.
+    Returns {externalId: (email, label)} for addresses worth using."""
+    from apify_client import ApifyClient
+
+    cfg = SETTINGS["hunter"]
+    client = ApifyClient(token)
+    run = client.actor(cfg.get("apify_actor", "coregent/work-email-finder")).call(
+        run_input={"peopleRecords": people, "maxTotalResults": len(people), "verifyEmails": False,
+                   "emailTypes": ["personal"], "includeSummary": False},
+        max_total_charge_usd=Decimal(str(cfg.get("max_charge_usd_per_run", 0.2))),
+    )
+    if run is None:
+        raise RuntimeError("email finder run did not finish")
+    ds_id = run.get("defaultDatasetId") if isinstance(run, dict) else getattr(run, "default_dataset_id", None)
+    found = {}
+    for row in client.dataset(ds_id).iterate_items():
+        email = row.get("email")
+        if not row.get("emailFound") or not email:
+            continue
+        verified = row.get("isVerified") is True
+        seen = row.get("emailSourceType") == "found" and (row.get("sourceCount") or 0) > 0
+        conf = row.get("confidenceScore") or 0
+        if verified:
+            found[row.get("externalId")] = (email, "verified")
+        elif seen and conf >= cfg.get("min_confidence", 80):
+            found[row.get("externalId")] = (email, f"{conf}% sure")
+    return found
 
 
 def find_recruiter_emails(jobs, usage):
-    """Spend a small monthly Hunter budget on the best jobs that name a recruiter."""
+    """Spend a small monthly budget finding work emails for the best jobs that name a recruiter."""
     cfg = SETTINGS.get("hunter") or {}
     if not cfg.get("enabled"):
         return []
     month = TODAY[:7]
     tabs = {t["id"]: t for t in CONFIG["tabs"]}
-    per_run, notes = {}, []
+    batches, per_run, notes = {}, {}, []
     for job in sorted(jobs, key=lambda j: -j["keyword_score"]):
         t = tabs[job["tab"]]
         person = t["person"].lower()
-        key = os.environ.get(t.get("hunter_key_env", ""), "").strip()
-        if not key or not job.get("recruiter_name") or job.get("recruiter_email"):
+        if not job.get("recruiter_name") or job.get("recruiter_email"):
             continue
         if job["keyword_score"] < cfg.get("min_keyword_score", 65):
             continue
         used = usage.setdefault(month, {}).get(person, 0)
-        if used >= cfg.get("monthly_budget_per_person", 20) or per_run.get(person, 0) >= cfg.get("max_per_run_per_person", 2):
+        if used + per_run.get(person, 0) >= cfg.get("monthly_budget_per_person", 20):
             continue
-        usage[month][person] = used + 1
+        if per_run.get(person, 0) >= cfg.get("max_per_run_per_person", 2):
+            continue
         per_run[person] = per_run.get(person, 0) + 1
-        try:
-            email, score = hunter_find(key, job["company"], job["recruiter_name"])
-        except Exception as exc:
-            notes.append(f"hunter ({job['company']}): {exc}")
+        rec = {"externalId": f"{job['tab']}:{job['id']}"}
+        if job.get("recruiter_url"):
+            rec["linkedinUrl"] = job["recruiter_url"]
+        else:
+            rec.update({"fullName": job["recruiter_name"], "company": job["company"]})
+        batches.setdefault(t["apify_token_env"], []).append((person, rec, job))
+
+    for token_env, items in batches.items():
+        token = os.environ.get(token_env, "").strip()
+        if not token:
             continue
-        if email and (score or 0) >= cfg.get("min_confidence", 70):
-            job["recruiter_email"], job["recruiter_email_score"] = email, score
-            log(f"  email found for {job['recruiter_name']} at {job['company']} ({score}%)")
+        for person, _, _ in items:
+            usage[month][person] = usage[month].get(person, 0) + 1
+        try:
+            found = apify_find_emails(token, [rec for _, rec, _ in items])
+        except Exception as exc:
+            notes.append(f"email finder: {exc}")
+            continue
+        for _, rec, job in items:
+            hit = found.get(rec["externalId"])
+            if hit:
+                job["recruiter_email"], job["recruiter_email_score"] = hit
+                log(f"  email found for {job['recruiter_name']} at {job['company']} ({hit[1]})")
     return notes
 
 
