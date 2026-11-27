@@ -41,7 +41,7 @@ On days you skip this, the page still works with keyword scores.
 
 About 1 in 5 LinkedIn jobs names the recruiter. For those, the card shows their name and two buttons: **Message recruiter on LinkedIn** (copies your message and opens their profile) and **Email recruiter** (opens Gmail with the email written; attach your resume and send). Emails come from the posting itself or from Hunter.io.
 
-To turn on Hunter email finding, each of you creates a free account at hunter.io, copies the API key (Dashboard, API), and adds it as a GitHub secret: `HUNTER_API_KEY_SHREYASH` and `HUNTER_API_KEY_AKANKSHA`. The tool uses at most 20 lookups per person per month, only for good matches with a named recruiter, and keeps an email only when Hunter is at least 70% sure. Optional: put a link to your resume (for example Google Drive, view-only) in `cv_link` for your tabs in `jobs/config.json`, and the email will include it.
+Work emails are looked up automatically through Apify's Work Email Finder (it uses Hunter.io's database, so no Hunter account is needed and your existing Apify tokens are used). It runs only for good matches with a named recruiter, at most 2 lookups per person per night and 20 per month, and you're charged only when an email is found. An email is kept only when it's verified, or was actually seen online with at least 80% confidence; guessed addresses are ignored. Optional: put a link to your resume (for example Google Drive, view-only) in `cv_link` for your tabs in `jobs/config.json`, and the email will include it.
 
 Send at most 5–10 recruiter emails a day, from your personal Gmail.
 
