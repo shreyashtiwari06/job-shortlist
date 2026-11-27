@@ -308,7 +308,9 @@ footer ul{padding-left:18px;margin:6px 0 0}
 
   function recEmail(j){
     if(j.recruiter_email) return j.recruiter_email;
-    var e = String(j.emails||"").split(/[,\s]+/).filter(function(x){ return /@/.test(x); });
+    var e = String(j.emails||"").split(/[,\s]+/).filter(function(x){
+      return /@/.test(x) && !/accommodation|no-?reply|privacy|support|unsubscribe|donotreply|abuse/i.test(x);
+    });
     return e[0] || "";
   }
 
