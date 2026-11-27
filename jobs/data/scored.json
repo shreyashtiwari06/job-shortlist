@@ -1,5 +1,5 @@
 {
- "date": "2026-11-26",
+ "date": "2026-11-27",
  "note": "Keys are tab:job id.",
  "jobs": {
   "shreyash-networking:00981952a8e8": {
@@ -3105,6 +3105,649 @@
    "verdict": "Skip",
    "reason": "1.5-4.5 LPA.",
    "missing": []
+  },
+  "shreyash-networking:2cd1dcddfbac": {
+   "score": 8,
+   "verdict": "Apply",
+   "reason": "Tata Elxsi wants Python developers for networking applications and automation, exactly your mix.",
+   "missing": [
+    "Network protocol testing tools"
+   ],
+   "message": "Hi, I'm Shreyash, a Python engineer with nearly 3 years at Benison Technologies building SD-WAN device software on OpenWrt. I delivered our end-to-end IPsec feature on strongSwan (Employee of the Quarter, Q1 2026) and built BGP/BFD over IPsec with FRR, with sub-second failover. I'd love to be considered for the Python Developer with Networking Experience role at Tata Elxsi. Could we have a quick chat, or could you refer me?",
+   "bullets": [
+    "Implemented IPsec site-to-site VPN end to end on strongSwan with NAT-T, MOBIKE and policy-based routing",
+    "Integrated BGP and BFD over IPsec using FRR with sub-second failover",
+    "Built HA with self-healing watchdogs and DC-DR redundancy",
+    "Brought up 15+ hardware models on the device agent"
+   ]
+  },
+  "shreyash-networking:df617d3a1e7a": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Rubrik's global network development role is about designing, building and automating the network; titled senior, but the work matches.",
+   "missing": [
+    "Data-center scale networking",
+    "Seniority"
+   ],
+   "message": "Hi, I'm Shreyash, a Python engineer with nearly 3 years at Benison Technologies building SD-WAN device software on OpenWrt. I delivered our end-to-end IPsec feature on strongSwan (Employee of the Quarter, Q1 2026) and built BGP/BFD over IPsec with FRR, with sub-second failover. I'd love to be considered for the Global Network Development Engineer role at Rubrik. Could we have a quick chat, or could you refer me?",
+   "bullets": [
+    "Implemented IPsec site-to-site VPN end to end on strongSwan with NAT-T, MOBIKE and policy-based routing",
+    "Integrated BGP and BFD over IPsec using FRR with sub-second failover",
+    "Built HA with self-healing watchdogs and DC-DR redundancy",
+    "Brought up 15+ hardware models on the device agent"
+   ]
+  },
+  "shreyash-networking:92bc4a03fbf8": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Infrastructure engineer (L2) at Sun King, Gurugram hybrid; Linux and networking infra.",
+   "missing": [
+    "Cloud infra"
+   ]
+  },
+  "shreyash-networking:5558f0544b4d": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Mavenir telecom Python + Linux role, but asks 4-6 years.",
+   "missing": [
+    "Experience",
+    "Telecom"
+   ]
+  },
+  "shreyash-networking:e3f27b4021f3": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Senior cloud infra (DNS, NTP, LDAP, Linux) at Miratech, Delhi.",
+   "missing": [
+    "Seniority",
+    "Ops focus"
+   ]
+  },
+  "shreyash-networking:9f708f03a5d0": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Remote security solution engineer at Orange Business; pre-sales/solution leaning.",
+   "missing": [
+    "Security solutions"
+   ]
+  },
+  "shreyash-networking:d7faffe3a4a6": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Remote open-source contribution work, 20-40 LPA; likely contract.",
+   "missing": [
+    "Contract terms"
+   ]
+  },
+  "shreyash-networking:75ed5277548c": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Automation engineer at a cybersecurity product (Coralogix/Snowbit), Gurugram.",
+   "missing": [
+    "Security tooling"
+   ]
+  },
+  "shreyash-networking:697ed9bc0fe0": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Python backend at MaxIQ, Pune; better for your backend tab.",
+   "missing": []
+  },
+  "shreyash-networking:06e9d47ef355": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "Duplicate Orange security solution listing.",
+   "missing": []
+  },
+  "shreyash-networking:1be2767a2589": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "Senior software engineer at Orange, not networking-focused.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:19f9988a05e0": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "Senior software engineer at Orange Business.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:e450de2b86a7": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "QA and network validation at HPE.",
+   "missing": [
+    "QA focus"
+   ]
+  },
+  "shreyash-networking:c224e2873e01": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "Nexapp builds SD-WAN, but this is L2 customer support.",
+   "missing": [
+    "Support role"
+   ]
+  },
+  "shreyash-networking:e051d031875b": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "Senior SE at Mastercard, not networking.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:4e525162544c": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Staff engineer at Aviatrix (cloud networking); great domain, far above your level.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:d34982652a5b": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Network engineer L2/L3 operations, 3-10 years.",
+   "missing": [
+    "Operations"
+   ]
+  },
+  "shreyash-networking:c61f8ec39ce6": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "AVP-level Python role at NatWest.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:f98a3dcb6aca": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Staff level at LinkedIn.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:04929d8671c6": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Network operations at CME Group.",
+   "missing": [
+    "Operations"
+   ]
+  },
+  "shreyash-networking:373668c6ee09": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Senior SE at an e-commerce data firm.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:d185a10d43d4": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Team lead backend role.",
+   "missing": [
+    "Lead"
+   ]
+  },
+  "shreyash-networking:eebeeefd9ef3": {
+   "score": 3.5,
+   "verdict": "Skip",
+   "reason": "Senior network engineer in operations.",
+   "missing": [
+    "Operations"
+   ]
+  },
+  "shreyash-networking:e806302e1f44": {
+   "score": 3,
+   "verdict": "Skip",
+   "reason": "AVP credit-risk engineering.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-networking:7dedc437c1b3": {
+   "score": 2.5,
+   "verdict": "Skip",
+   "reason": "Selenium QA role.",
+   "missing": [
+    "QA focus"
+   ]
+  },
+  "shreyash-backend:239942888227": {
+   "score": 8,
+   "verdict": "Apply",
+   "reason": "Decipher Financials, Gurugram: Python + FastAPI + PostgreSQL backend for 3+ years.",
+   "missing": [
+    "FastAPI in production"
+   ],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the Backend Developer (Python / FastAPI) role at Decipher Financials and would value a quick chat or a referral.",
+   "bullets": [
+    "Designed an event-driven asyncio service on Kafka with TLS/mTLS, verified updates and automatic rollback",
+    "Built a configuration-management service applying centrally pushed config at runtime with backup and auto-restore",
+    "Fixed a restart deadlock between services, cutting recovery from over a minute to a few seconds"
+   ]
+  },
+  "shreyash-backend:81c184ea6ca8": {
+   "score": 7.5,
+   "verdict": "Apply",
+   "reason": "Python backend at ITILITE (B2B SaaS), Bangalore; the recruiter is named, so message them too.",
+   "missing": [
+    "SaaS scale"
+   ],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the Software Engineer - Backend (Python) role at ITILITE and would value a quick chat or a referral.",
+   "bullets": [
+    "Designed an event-driven asyncio service on Kafka with TLS/mTLS, verified updates and automatic rollback",
+    "Built a configuration-management service applying centrally pushed config at runtime with backup and auto-restore",
+    "Fixed a restart deadlock between services, cutting recovery from over a minute to a few seconds"
+   ]
+  },
+  "shreyash-backend:2cd1dcddfbac": {
+   "score": 7.5,
+   "verdict": "Apply",
+   "reason": "Python networking applications at Tata Elxsi; also in your networking tab, apply once.",
+   "missing": [],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the Python Developer with Networking Experience role at Tata Elxsi and would value a quick chat or a referral.",
+   "bullets": [
+    "Designed an event-driven asyncio service on Kafka with TLS/mTLS, verified updates and automatic rollback",
+    "Built a configuration-management service applying centrally pushed config at runtime with backup and auto-restore",
+    "Fixed a restart deadlock between services, cutting recovery from over a minute to a few seconds"
+   ]
+  },
+  "shreyash-backend:f3cbccb7077b": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Python developer at a product company through TalentRabbit, Bengaluru.",
+   "missing": [
+    "Django/FastAPI"
+   ],
+   "message": "Hi, I'm Shreyash, a Python backend engineer with nearly 3 years at Benison Technologies. I built an event-driven asyncio service on Kafka with TLS/mTLS and automatic rollback, plus HA failover services and a runtime config-management service. I'm interested in the Python Developer role at TalentRabbit's client and would value a quick chat or a referral.",
+   "bullets": [
+    "Designed an event-driven asyncio service on Kafka with TLS/mTLS, verified updates and automatic rollback",
+    "Built a configuration-management service applying centrally pushed config at runtime with backup and auto-restore",
+    "Fixed a restart deadlock between services, cutting recovery from over a minute to a few seconds"
+   ]
+  },
+  "shreyash-backend:808035014a3a": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Senior version of the ITILITE role; apply to the non-senior one.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:2a8220991bbf": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Backend engineer at Nat Habit, Gurgaon.",
+   "missing": []
+  },
+  "shreyash-backend:52fc49e4132b": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Mavenir Python + Linux telecom role; recruiter named, but 4-6 years asked.",
+   "missing": [
+    "Experience"
+   ]
+  },
+  "shreyash-backend:d1012f24b897": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Remote Python + AI engineer at Qpact.",
+   "missing": [
+    "AI/LLM"
+   ]
+  },
+  "shreyash-backend:da83019d7ee3": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "SDE 2 at Tailored AI, Bangalore.",
+   "missing": [
+    "LLM frameworks"
+   ]
+  },
+  "shreyash-backend:4de5fff3ed96": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Software engineer at NatWest, Bangalore.",
+   "missing": []
+  },
+  "shreyash-backend:3c4085c41316": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Backend + AI with React, on-site Gurugram, 3+ years.",
+   "missing": [
+    "React"
+   ]
+  },
+  "shreyash-backend:87cc499a7054": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Backend in Node.js/Python/Go; an email is listed in the posting.",
+   "missing": [
+    "Node.js or Go"
+   ]
+  },
+  "shreyash-backend:f210cff0aabb": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Remote Python developer with AI/ML for 3 years.",
+   "missing": [
+    "AI/ML"
+   ]
+  },
+  "shreyash-backend:e86f41468543": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Remote Python developer for 1-3 years; probably below your level.",
+   "missing": []
+  },
+  "shreyash-backend:ac08b66a5b8d": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Platform engineer at Kyndryl.",
+   "missing": [
+    "Platform/cloud"
+   ]
+  },
+  "shreyash-backend:424582b835e4": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Senior SE at Datacultr (fintech), Gurgaon.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:e0b540117bff": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Senior Python/Django developer.",
+   "missing": [
+    "Django"
+   ]
+  },
+  "shreyash-backend:083d419c9ff7": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Senior SE at Mastercard, Pune hybrid.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:6ba6d3065054": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Senior SE at Epsilon.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:d0720f9a49c4": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Senior SE at lululemon.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:1f414b7cf164": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Senior SE at Pattern, Pune.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:394525ed6a3a": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Senior Python developer at HTC.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:3ff5e4483ba2": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Remote senior SE at Orange Business.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "shreyash-backend:50e45ae34ad5": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Lead backend engineer at Peoplebox.",
+   "missing": [
+    "Lead"
+   ]
+  },
+  "shreyash-backend:11c3457c54ad": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Team lead backend at Shopperbeats.",
+   "missing": [
+    "Lead"
+   ]
+  },
+  "akanksha-java:5de6b9ad3611": {
+   "score": 7.5,
+   "verdict": "Apply",
+   "reason": "SDE 2 at Pluang, an investing fintech in Gurgaon; her payments background fits.",
+   "missing": [],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Senior Software Engineer (SDE 2) role at Pluang. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:e2370f60e3ae": {
+   "score": 7.5,
+   "verdict": "Apply",
+   "reason": "Fintech backend in Java (and Node.js), 2-5 years, 15-25 LPA, hybrid Bangalore.",
+   "missing": [
+    "Node.js"
+   ],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Backend Software Engineer - Java role at HiringBlaze's fintech client. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:8f1c11a61514": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Java engineer at a product company through TalentRabbit, Bengaluru.",
+   "missing": [],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Java Software Engineer role at TalentRabbit's client. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:04a59d5a3730": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Java 8+ and Spring Boot microservices at Covalensedigital.",
+   "missing": [],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Java Developer - Microservices role at Covalensedigital. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:3752378fd760": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Remote Java role at Leegality.",
+   "missing": [],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Software Engineer - Java role at Leegality. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:7e1d2d0e289b": {
+   "score": 7,
+   "verdict": "Apply",
+   "reason": "Java developer for 2-6 years at Agiliad, Pune or Bengaluru.",
+   "missing": [],
+   "message": "Hi, I'm Akanksha, a Java backend developer with 3 years on Spring Boot microservices. At Paymonk I built AEPS, BBPS and DMT payment APIs with JWT/RBAC and Redis, and at Harij Softech I build audit-workflow and Spring Batch services for a European client. I'd love to be considered for the Java Developer role at Agiliad. Could we connect, or could you refer me?",
+   "bullets": [
+    "Built high-availability REST APIs for AEPS, BBPS, DMT and wallet payouts across B2B and B2C",
+    "Secured APIs with JWT, multi-tier RBAC and Redis session caching",
+    "Refactored legacy code with generics and design patterns, cutting technical debt by 70%"
+   ]
+  },
+  "akanksha-java:06242f058f0c": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Infosys Java + Spring Boot + AWS, Bengaluru. Infosys posted many similar roles; apply to one or two.",
+   "missing": [
+    "AWS"
+   ]
+  },
+  "akanksha-java:3fb028346a3c": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Infosys Java developer, Delhi/Pune among locations.",
+   "missing": []
+  },
+  "akanksha-java:8b4ac2ca25fd": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Infosys Java Spring Boot for 2-5 years, but listed under Hyderabad.",
+   "missing": [
+    "Location"
+   ]
+  },
+  "akanksha-java:9531b2fe72fb": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "PwC Senior Associate Java developer in Gurugram.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "akanksha-java:3cddbcee50f1": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Java backend with cloud at NTT DATA, Bangalore hybrid.",
+   "missing": [
+    "Cloud"
+   ]
+  },
+  "akanksha-java:be55c836e151": {
+   "score": 6.5,
+   "verdict": "Maybe",
+   "reason": "Software engineer at Uber; very high bar.",
+   "missing": [
+    "High bar"
+   ]
+  },
+  "akanksha-java:99d6949d0938": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Infosys Java back-end, Hyderabad.",
+   "missing": [
+    "Location"
+   ]
+  },
+  "akanksha-java:fa6b1282e2ca": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Infosys Java/Spring Boot, Hyderabad.",
+   "missing": [
+    "Location"
+   ]
+  },
+  "akanksha-java:3510ef79f7c5": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Infosys Spring Boot, PAN India listing.",
+   "missing": []
+  },
+  "akanksha-java:1a60fb1509d6": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Infosys Java backend, 3-5 years.",
+   "missing": []
+  },
+  "akanksha-java:9eecd54ce119": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Fixed income applications at Millennium; finance-heavy, high bar.",
+   "missing": [
+    "Trading domain"
+   ]
+  },
+  "akanksha-java:ed99e427f4b7": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Java developer at Antino.",
+   "missing": []
+  },
+  "akanksha-java:837fe35810c1": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Oracle health-data backend in Noida, titled senior. The email shown is Oracle's accommodations inbox, not a recruiter.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "akanksha-java:adde06799794": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Senior backend at Myntra.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "akanksha-java:f7e07954cc4a": {
+   "score": 6,
+   "verdict": "Maybe",
+   "reason": "Java developer at HummingWave.",
+   "missing": []
+  },
+  "akanksha-java:41c31cd5f76a": {
+   "score": 5.5,
+   "verdict": "Maybe",
+   "reason": "Remote Java data engineering at GlobalLogic.",
+   "missing": [
+    "Data engineering"
+   ]
+  },
+  "akanksha-java:c8f2e28a5f44": {
+   "score": 5,
+   "verdict": "Maybe",
+   "reason": "Infosys Java backend for 1-3 years; a level below her.",
+   "missing": []
+  },
+  "akanksha-java:f69c816fa858": {
+   "score": 4.5,
+   "verdict": "Skip",
+   "reason": "Senior technical specialist in architecture.",
+   "missing": [
+    "Seniority"
+   ]
+  },
+  "akanksha-java:b781798a0266": {
+   "score": 4,
+   "verdict": "Skip",
+   "reason": "Infosys listing wants immediate joiners.",
+   "missing": [
+    "Notice period"
+   ]
   }
  }
 }
