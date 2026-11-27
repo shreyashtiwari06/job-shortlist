@@ -34,7 +34,7 @@
       "max_per_tab": 15
     },
     "hunter": {
-      "enabled": true,
+      "enabled": false,
       "provider": "apify",
       "apify_actor": "coregent/work-email-finder",
       "monthly_budget_per_person": 20,
