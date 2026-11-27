@@ -319,7 +319,7 @@ footer ul{padding-left:18px;margin:6px 0 0}
       ? '<b>'+(j.recruiter_url ? '<a href="'+esc(j.recruiter_url)+'" target="_blank" rel="noopener">'+esc(j.recruiter_name)+'</a>' : esc(j.recruiter_name))+'</b>' +
         (j.recruiter_title ? '<span class="rt">'+esc(j.recruiter_title.length>70 ? j.recruiter_title.slice(0,70)+"…" : j.recruiter_title)+'</span>' : "")
       : '<span class="rt">Contact in the posting</span>';
-    var em = email ? '<span class="em">'+esc(email)+(j.recruiter_email_score ? " ("+esc(j.recruiter_email_score)+"% sure)" : "")+'</span>' : "";
+    var em = email ? '<span class="em">'+esc(email)+(j.recruiter_email_score ? " ("+esc(j.recruiter_email_score)+")" : "")+'</span>' : "";
     return '<p class="rec">Recruiter '+who+em+'</p>';
   }
 
